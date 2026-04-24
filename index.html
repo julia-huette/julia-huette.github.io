@@ -21,7 +21,6 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -29,10 +28,10 @@
       background: var(--blue-lightest);
       color: var(--text);
       font-size: 17px;
-      line-height: 1.7;
+      line-height: 1.75;
     }
 
-    /* ── NAV ── */
+    /* NAV */
     nav {
       position: sticky;
       top: 0;
@@ -50,13 +49,8 @@
       font-weight: 600;
       color: var(--white);
       font-size: 1.1rem;
-      letter-spacing: 0.02em;
     }
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
     .nav-links a {
       color: var(--blue-light);
       text-decoration: none;
@@ -66,7 +60,7 @@
     }
     .nav-links a:hover { color: var(--white); }
 
-    /* ── HERO ── */
+    /* HERO */
     .hero {
       background: linear-gradient(135deg, var(--blue-deep) 0%, var(--blue-dark) 60%, var(--blue-mid) 100%);
       color: var(--white);
@@ -87,12 +81,7 @@
       font-size: 1.05rem;
       font-weight: 300;
     }
-    .hero-buttons {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
+    .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
     .btn {
       display: inline-block;
       padding: 0.75rem 1.8rem;
@@ -108,15 +97,13 @@
     .btn-primary { background: var(--accent); color: var(--white); }
     .btn-secondary { background: rgba(255,255,255,0.15); color: var(--white); border: 1.5px solid rgba(255,255,255,0.4); }
 
-    /* ── SECTIONS ── */
+    /* SECTIONS */
     section {
       max-width: 820px;
       margin: 0 auto;
       padding: 4rem 2rem;
     }
-    section + section {
-      border-top: 1.5px solid var(--blue-light);
-    }
+    section + section { border-top: 1.5px solid var(--blue-light); }
 
     .section-label {
       font-size: 0.78rem;
@@ -134,10 +121,17 @@
       margin-bottom: 1.2rem;
       line-height: 1.3;
     }
+    h3 {
+      font-family: 'Lora', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--blue-deep);
+      margin: 2.2rem 0 0.8rem;
+    }
     p { margin-bottom: 1rem; color: var(--text); }
     p:last-child { margin-bottom: 0; }
 
-    /* ── IMAGE PLACEHOLDER ── */
+    /* IMAGE PLACEHOLDERS */
     .img-placeholder {
       width: 100%;
       background: var(--blue-light);
@@ -150,10 +144,11 @@
       font-size: 0.9rem;
       font-weight: 500;
       margin: 1.8rem 0;
-      min-height: 220px;
+      min-height: 200px;
     }
+    .img-placeholder.small { min-height: 130px; }
 
-    /* ── AUFKLAPPBOX ── */
+    /* FOLDOUT */
     .foldout {
       background: var(--box-bg);
       border: 1.5px solid var(--box-border);
@@ -171,17 +166,8 @@
       gap: 1rem;
     }
     .foldout-header:hover { background: rgba(0,0,0,0.04); }
-    .foldout-question {
-      font-weight: 600;
-      color: var(--blue-deep);
-      font-size: 0.97rem;
-    }
-    .foldout-icon {
-      font-size: 1.2rem;
-      color: var(--blue-dark);
-      transition: transform 0.3s;
-      flex-shrink: 0;
-    }
+    .foldout-question { font-weight: 600; color: var(--blue-deep); font-size: 0.97rem; }
+    .foldout-icon { font-size: 1.3rem; color: var(--blue-dark); transition: transform 0.3s; flex-shrink: 0; }
     .foldout.open .foldout-icon { transform: rotate(45deg); }
     .foldout-body {
       max-height: 0;
@@ -189,13 +175,10 @@
       transition: max-height 0.4s ease, padding 0.3s;
       padding: 0 1.3rem;
     }
-    .foldout.open .foldout-body {
-      max-height: 600px;
-      padding: 0 1.3rem 1.2rem;
-    }
+    .foldout.open .foldout-body { max-height: 900px; padding: 0 1.3rem 1.2rem; }
     .foldout-body p { font-size: 0.95rem; color: var(--text-light); }
 
-    /* ── HIGHLIGHT BOX ── */
+    /* HIGHLIGHT BOX */
     .highlight-box {
       background: var(--box-bg);
       border-left: 4px solid var(--blue-dark);
@@ -205,13 +188,10 @@
       font-size: 0.95rem;
       color: var(--text);
     }
+    .highlight-box strong { color: var(--blue-deep); }
 
-    /* ── KRITERIEN LISTE ── */
-    .criteria-list {
-      display: grid;
-      gap: 1rem;
-      margin: 1.8rem 0;
-    }
+    /* CRITERIA */
+    .criteria-list { display: grid; gap: 1rem; margin: 1.8rem 0; }
     .criteria-item {
       background: var(--white);
       border: 1.5px solid var(--blue-light);
@@ -233,12 +213,35 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      margin-top: 2px;
+      margin-top: 3px;
     }
-    .criteria-text strong { color: var(--blue-deep); display: block; margin-bottom: 0.2rem; }
-    .criteria-text span { font-size: 0.88rem; color: var(--text-light); }
+    .criteria-text strong { color: var(--blue-deep); display: block; margin-bottom: 0.15rem; }
+    .criteria-text em { font-size: 0.88rem; color: var(--text-light); font-style: normal; display: block; margin-top: 0.25rem; }
 
-    /* ── VIDEO PLACEHOLDER ── */
+    /* STEPS */
+    .steps { display: grid; gap: 0.85rem; margin: 1.8rem 0; }
+    .step {
+      background: var(--white);
+      border: 1.5px solid var(--blue-light);
+      border-radius: 10px;
+      padding: 0.9rem 1.2rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .step-label {
+      background: var(--blue-light);
+      color: var(--blue-deep);
+      font-weight: 700;
+      font-size: 0.78rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 3px;
+      white-space: nowrap;
+    }
+
+    /* VIDEO PLACEHOLDER */
     .video-placeholder {
       width: 100%;
       background: var(--blue-deep);
@@ -253,25 +256,27 @@
       gap: 1rem;
     }
     .play-btn {
-      width: 60px; height: 60px;
+      width: 64px; height: 64px;
       background: rgba(255,255,255,0.2);
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       font-size: 1.6rem;
     }
 
-    /* ── FOOTER ── */
+    /* FOOTER */
     footer {
       background: var(--blue-deep);
       color: var(--blue-light);
       text-align: center;
       padding: 2rem;
       font-size: 0.85rem;
+      margin-top: 2rem;
     }
     footer a { color: var(--blue-light); }
 
     @media (max-width: 600px) {
       nav { padding: 0 1.2rem; }
+      .nav-links { gap: 1.2rem; }
       section { padding: 2.5rem 1.2rem; }
     }
   </style>
@@ -297,14 +302,23 @@
   </div>
 </div>
 
-<!-- SECTION 1: GRUNDPROBLEM -->
+
+<!-- ══════════════════════════════════════════
+     TEIL 1: GRUNDPROBLEM
+     ══════════════════════════════════════════ -->
 <section id="grundproblem">
   <div class="section-label">Teil 1</div>
   <h2>Das Grundproblem</h2>
 
-  <p>Um einen Bürger*innenrat einzurichten, werden im ersten Schritt Menschen aus dem ganzen Land eingeladen. Dabei soll jede Person genau die gleiche Chance auf einen Einladungsbrief haben.</p>
+  <p>Um einen Bürger*innenrat einzurichten, werden im ersten Schritt Menschen aus dem ganzen Land eingeladen. Dabei soll jede Person genau die gleiche Chance auf einen Einladungsbrief haben. Anschließend wird der Bürger*innenrat aus all den Menschen zusammengestellt, die ihre Einladung angenommen haben — dabei wird darauf geachtet, dass bestimmte Gruppen repräsentiert werden, also dass zum Beispiel Menschen verschiedenen Alters, Bildungsgrads, Genders und Herkunftsorts ausgewählt werden.</p>
+
+  <p>Aber wie wird eigentlich entschieden, wer einen Brief erhält? Diesen Schritt schauen wir uns hier genauer an.</p>
+
+  <h3>Warum ist das nicht ganz einfach?</h3>
+
   <p>Auf den ersten Blick scheint das Problem einfach zu sein: Kann man nicht einfach zufällig die gewünschte Anzahl Menschen auswählen, mit gleichen Chancen für alle? Wenn es eine zentrale Liste aller Einwohnenden gäbe, wären wir tatsächlich hier fertig.</p>
-  <p>In Deutschland gibt es eine solche zentrale Liste aber nicht — stattdessen verwaltet jede Stadt die Daten ihrer Einwohnenden selbst. Das bedeutet: Wir können nicht direkt zufällig Menschen auswählen. Stattdessen müssen wir zufällig <strong>Städte</strong> auswählen.</p>
+
+  <p>In Deutschland gibt es eine solche zentrale Liste aber nicht — stattdessen verwaltet jede Stadt die Daten ihrer Einwohnenden selbst (oder um genau zu sein: jede Kommune). Wir können also nicht direkt zufällig Menschen auswählen. Stattdessen müssen wir zufällig <strong>Städte</strong> auswählen und jeder Stadt eine gewisse Anzahl Einladungsbriefe zuordnen, die innerhalb der Stadt zufällig verteilt werden.</p>
 
   <div class="foldout">
     <div class="foldout-header" onclick="toggleFoldout(this)">
@@ -312,112 +326,194 @@
       <span class="foldout-icon">+</span>
     </div>
     <div class="foldout-body">
-      <p>Gründe dafür sind unter anderem Datenschutz und Schutz vor Missbrauch der Daten durch den Staat. Jede Kommune verwaltet die Daten ihrer Einwohnenden selbst. Ein zentrales Bundesmelderegister wurde in Deutschland aus diesen Gründen bisher nicht eingeführt.</p>
+      <p>Gründe dafür sind unter anderem Datenschutz und Schutz vor Missbrauch der Daten durch den Staat. Jede Kommune verwaltet die Daten ihrer Einwohnenden eigenständig. Ein zentrales Bundesmelderegister wurde in Deutschland aus genau diesen Gründen bisher nicht eingeführt — ein entsprechendes Gesetz scheiterte unter anderem an datenschutzrechtlichen Bedenken.</p>
     </div>
   </div>
 
-  <p>Könnte man nicht einfach alle Städte auswählen und ihnen ihren Anteil an Briefen geben? Dafür gibt es viel zu viele Städte — es wäre ein riesiger Aufwand, mit allen Kontakt aufzunehmen, nur um dann ggf. sehr wenige Briefe pro Stadt zu versenden.</p>
+  <p>Könnte man nicht einfach alle Städte auswählen und ihnen ihren Anteil an Briefen geben? Dafür gibt es viel zu viele Städte — es wäre ein riesiger Aufwand, mit allen Kontakt aufzunehmen, nur um dann gegebenenfalls sehr wenige Briefe pro Stadt zu versenden. Das lohnt sich nicht.</p>
 
-  <div class="img-placeholder" style="min-height:180px;">
-    🖼 Bild: Karte / Illustration Bevölkerung auf Städte verteilt
-  </div>
+  <p>Wie geht das besser? Und wie schaffen wir es, dass trotzdem noch jede Person dieselbe Chance auf einen Brief hat?</p>
 
-  <h2 style="margin-top:2rem;">Das Rechteck-Bild</h2>
-  <p>Wir stellen uns ein kleines Land mit insgesamt 60 Einwohnenden vor, die auf vier Städte verteilt sind. Dieses Problem lässt sich gut bildlich darstellen: Wir malen ein Rechteck, bei dem jedes Feld genau einer Person entspricht.</p>
+  <h3>Das Rechteck-Bild</h3>
 
-  <div class="img-placeholder">🖼 Bild: population.png – Städte mit farbigen Punkten</div>
+  <p>Zunächst schauen wir an, wie man das Problem bildlich darstellen kann. Wir stellen uns ein kleines Land mit insgesamt 60 Einwohnenden vor, die auf vier Städte verteilt sind: Die Hälfte, also 30 Menschen, wohnen in der gelben Stadt, 12 wohnen in der roten Stadt, weitere 12 in der blauen Stadt und 6 in der grünen Stadt.</p>
 
-  <p>Jede Person wird in einem Feld platziert, sodass der Flächenanteil jeder Farbe dem Bevölkerungsanteil der jeweiligen Stadt entspricht. Dann würfeln wir zufällig eine der Spalten aus — und genau diese Spalte bestimmt, wie viele Briefe jede Stadt bekommt.</p>
+  <div class="img-placeholder">🖼 Bild: population.png</div>
 
-  <div class="img-placeholder">🖼 Bild: rectangle.png – Eingefärbtes Rechteck</div>
-  <div class="img-placeholder">🖼 Bild: dice.png – Würfelwurf und Spaltenauswahl</div>
+  <p>Wir möchten zu unserem Bürger*innenrat insgesamt 10 Einladungsbriefe verschicken. Dieses Problem kann man gut bildlich darstellen: Wir malen ein Rechteck der Höhe 10 und Breite 6 mit 10 × 6 = 60 Feldern — also genau ein Feld pro Bewohner*in unseres Landes. Jede Person wird in einem Feld platziert, sodass wir 30 gelbe Felder, 12 rote und blaue Felder und 6 grüne Felder erhalten.</p>
+
+  <div class="img-placeholder">🖼 Bild: rectangle.png</div>
+
+  <p>Dann würfeln wir zufällig eine der 6 Spalten aus. Jede Spalte besteht aus 10 Feldern — genau die richtige Anzahl Einladungen, die wir verschicken wollen. Wird zum Beispiel eine 1 gewürfelt, verschicken wir 6 Briefe an die blaue und 4 Briefe an die rote Stadt. Bei einer 2 verschicken wir 6 Briefe an die blaue und 4 Briefe an die gelbe Stadt — und so weiter.</p>
+
+  <div class="img-placeholder">🖼 Bild: dice.png</div>
 
   <div class="highlight-box">
-    <strong>Das Entscheidende:</strong> Solange der Flächenanteil jeder Stadt ihrem Bevölkerungsanteil entspricht, hat jede Person garantiert dieselbe Auswahlwahrscheinlichkeit — egal wie das Rechteck eingefärbt ist.
+    <strong>Das Entscheidende:</strong> Wichtig für die Fairness ist nur, dass jede Stadt genau so viele Felder bekommt wie sie Einwohnende hat. Der Anteil der gelb gefärbten Fläche am gesamten Rechteck muss dem Bevölkerungsanteil der gelben Stadt entsprechen — genauso für alle anderen Farben. Solange die Fläche fair aufgeteilt ist, hat jede Person garantiert dieselbe Auswahlwahrscheinlichkeit.
   </div>
 
-  <p>Aber wie soll das Rechteck eingefärbt werden? Es gibt viele Möglichkeiten — und nicht alle sind gleich gut. Folgende vier Kriterien sind dabei wichtig:</p>
+  <p>Es kann sein, dass eine Stadt eine geringe Chance hat, überhaupt ausgewählt zu werden, dafür aber im Falle einer Auswahl viele Einladungen versenden darf. Das erkennt man an einer schmalen und hohen Form im Bild. Die grüne Stadt dagegen hat eine höhere Chance ausgewählt zu werden, darf dann aber nur wenige Briefe verteilen. Solange die Anzahl der Felder bzw. die Fläche fair aufgeteilt ist, hat jede Person sicher dieselbe Auswahlwahrscheinlichkeit.</p>
+
+  <p>Sind wir jetzt fertig? Ein Rechteck einzufärben ist schließlich nicht schwer. Aber wir können das Rechteck auf ganz viele Arten färben — mit verschiedenen Vor- und Nachteilen.</p>
+
+  <h3>Verschiedene Möglichkeiten der Einfärbung</h3>
+
+  <p>Hier sind einige andere Möglichkeiten, das Rechteck einzufärben:</p>
+
+  <div class="img-placeholder">🖼 Bild: options2.png – Vier verschiedene Einfärbe-Optionen im Vergleich</div>
+
+  <p><strong>Bild 1 – Chaotisch:</strong> Man kann das Bild ganz chaotisch gestalten. Das wird allerdings schnell unübersichtlich.</p>
+
+  <p><strong>Bild 2 – Regelmäßige Schichten:</strong> Stattdessen kann man die Farben ganz regelmäßig in Schichten anordnen. Hier muss gar nicht mehr gewürfelt werden, weil jede Spalte gleich aussieht — in jedem Falle werden alle vier Städte ausgewählt und erhalten ihren fairen Anteil an Briefen.</p>
+
+  <p>Beide Bilder haben aber einen entscheidenden Nachteil: Es kann passieren, dass alle Städte des Landes gleichzeitig ausgewählt werden und Briefe verschicken müssen. In Ländern mit vielen Städten ist es nicht umsetzbar, mit allen Kontakt aufzunehmen und sich zu koordinieren.</p>
+
+  <p>Wir möchten also pro Spalte nur eine begrenzte Anzahl verschiedener Farben haben.</p>
+
+  <p><strong>Bild 3 – Maximal zwei Farben pro Spalte:</strong> Hier entstehen allerdings zwei andere Nachteile. Erstens werden alle Einwohnenden der grünen Stadt eingeladen, falls eine 1 gewürfelt wird — dabei hat aber jede Stadt eine maximale Anzahl an Briefen, die sie verschicken darf. Ein weiterer Grund ist Datenschutz: Es sollen nie alle Adressen einer Stadt gleichzeitig herausgegeben werden. Zweitens kann es vorkommen, dass eine deutlich kleinere Stadt viel mehr Briefe erhält als eine viel größere — das wirkt ungerecht, auch wenn der Prozess insgesamt fair ist.</p>
+
+  <div class="foldout">
+    <div class="foldout-header" onclick="toggleFoldout(this)">
+      <span class="foldout-question">💡 Warum darf eine Stadt nicht alle ihre Adressen herausgeben?</span>
+      <span class="foldout-icon">+</span>
+    </div>
+    <div class="foldout-body">
+      <p>Es gibt zwei Gründe: Erstens soll Überrepräsentation einer Stadt vermieden werden — wenn alle Einwohnenden einer kleinen Stadt eingeladen werden, ist diese Stadt unverhältnismäßig stark vertreten. Zweitens ist Datenschutz ein wichtiger Grund: Die Herausgabe aller Adressen einer Stadt auf einmal birgt ein höheres Risiko für Missbrauch. Deshalb gibt es für jede Stadt eine maximale Anzahl Briefe, die sie verschicken darf.</p>
+    </div>
+  </div>
+
+  <p><strong>Bild 4 – Der beste Kompromiss:</strong> Es werden nie mehr als drei verschiedene Städte ausgewählt, keine Stadt muss jemals die Adressen aller Einwohnenden herausgeben, und kleinere Städte erhalten immer weniger Briefe als große Städte. In Beispielen mit mehr Städten wird es sehr wichtig, Lösungen zu finden, bei denen nicht alle Städte kontaktiert werden müssen.</p>
+
+  <h3>Die vier Kriterien</h3>
+
+  <p>Die entscheidende Frage ist also: Nach welchen Regeln und auf welche Weise sollen die Rechtecke eingefärbt werden? Wichtig sind dabei folgende Kriterien:</p>
 
   <div class="criteria-list">
     <div class="criteria-item">
       <div class="criteria-num">1</div>
       <div class="criteria-text">
         <strong>Fairness</strong>
-        <span>Jede Person hat die gleiche Chance, einen Einladungsbrief zu erhalten. Der Flächenanteil jeder Stadt entspricht ihrem Bevölkerungsanteil.</span>
+        Jede Person hat die gleiche Chance, einen Einladungsbrief zu erhalten.
+        <em>Bildliche Bedeutung: Der Flächenanteil jeder Farbe bzw. Stadt entspricht ihrem Bevölkerungsanteil.</em>
       </div>
     </div>
     <div class="criteria-item">
       <div class="criteria-num">2</div>
       <div class="criteria-text">
         <strong>Gerechtigkeitsempfinden</strong>
-        <span>Kleinere Städte erhalten nie mehr Briefe als größere Städte. Wenn zwei Städte übereinander liegen, ist die größere immer mindestens so hoch wie die kleinere.</span>
+        Kleinere Städte erhalten nie mehr Briefe als größere Städte.
+        <em>Bildliche Bedeutung: Wenn zwei Städte übereinander sind, ist die größere immer mindestens so hoch wie die kleinere.</em>
       </div>
     </div>
     <div class="criteria-item">
       <div class="criteria-num">3</div>
       <div class="criteria-text">
         <strong>Einladungsgrenze</strong>
-        <span>Die maximal erlaubte Anzahl Einladungen jeder Stadt wird eingehalten — zum Schutz der Privatsphäre der Einwohnenden.</span>
+        Die maximal erlaubte Anzahl Einladungen jeder Stadt wird eingehalten.
+        <em>Bildliche Bedeutung: Jede Farbe hat eine maximal erlaubte Höhe.</em>
       </div>
     </div>
     <div class="criteria-item">
       <div class="criteria-num">4</div>
       <div class="criteria-text">
         <strong>Umsetzbarkeit</strong>
-        <span>Es sollen möglichst wenig verschiedene Städte gleichzeitig ausgewählt werden, damit der organisatorische Aufwand überschaubar bleibt.</span>
+        Es sollen möglichst wenig verschiedene Städte gleichzeitig ausgewählt werden.
+        <em>Bildliche Bedeutung: Es sollen möglichst wenige Städte übereinander liegen.</em>
       </div>
     </div>
   </div>
 
-  <div class="img-placeholder">🖼 Bild: options2.png – Verschiedene Einfärbe-Möglichkeiten im Vergleich</div>
+  <h3>Von Spalten zu kontinuierlichen Bildern</h3>
 
-  <div class="foldout">
-    <div class="foldout-header" onclick="toggleFoldout(this)">
-      <span class="foldout-question">💡 Warum darf nicht die ganze Stadt kontaktiert werden?</span>
-      <span class="foldout-icon">+</span>
-    </div>
-    <div class="foldout-body">
-      <p>Es sollen nie alle Adressen einer Stadt gleichzeitig herausgegeben werden. Zum einen soll Überrepräsentation einer Stadt vermieden werden. Zum anderen ist Datenschutz ein wichtiger Grund: Die Herausgabe aller Adressen auf einmal birgt ein höheres Missbrauchsrisiko.</p>
-    </div>
-  </div>
+  <p>In der Praxis sind die Länder natürlich viel größer und es gibt viel mehr Städte. Dann stellen wir die Bilder der Anschaulichkeit halber nicht mehr mit einzelnen Feldern und Spalten dar — man kann sich vorstellen, dass die Felder dann so klein werden, dass sie den Pixeln im Bild entsprechen.</p>
+
+  <p>Die Höhe des Rechtecks ist weiterhin die Anzahl der zu verschickenden Briefe und die Breite der Einfachheit halber 1. Anstatt zufällig eine Spalte auszuwählen, wählen wir nun eine zufällige x-Koordinate zwischen 0 und 1. An dieser Stelle ziehen wir eine Linie nach oben und schauen, welche Farben jeweils mit welcher Höhe vorkommen. Die Höhe jeder Farbe entscheidet dann, wie viele Briefe diese Stadt bekommt.</p>
+
+  <p>Bild 4 aus unserem Beispiel sähe dann so aus, wenn zufällig die Koordinate 0,75 ausgewählt wird:</p>
+
+  <div class="img-placeholder">🖼 Bild: general2.png – Kontinuierliches Bild mit eingezeichneter Linie bei x = 0,75</div>
+
+  <p>In der Praxis könnten Bilder dann zum Beispiel so aussehen:</p>
+
+  <div class="img-placeholder small">🖼 Bild: greedy_practical.png – Realistisches Beispiel mit vielen Städten</div>
+
 </section>
 
-<!-- SECTION 2: GREEDY EQUAL -->
+
+<!-- ══════════════════════════════════════════
+     TEIL 2: GREEDY EQUAL
+     ══════════════════════════════════════════ -->
 <section id="greedy">
   <div class="section-label">Teil 2</div>
   <h2>Greedy Equal</h2>
 
-  <p>Wie genau färben wir das Rechteck und erfüllen dabei alle vier Kriterien? Unsere Methode namens <strong>Greedy Equal</strong> bekommt eine Liste der Städte, ihrer Einwohnerzahlen und maximal erlaubter Briefanzahlen. Dann versucht sie, das Bild so zu färben, dass möglichst wenige Städte gleichzeitig kontaktiert werden müssen.</p>
+  <p>Wie genau färben wir das Rechteck und erfüllen dabei die gewünschten Kriterien? Unsere Methode namens <strong>Greedy Equal</strong> bekommt von uns eine Liste der Städte, ihrer Einwohnerzahlen und maximal erlaubter Höhen — außerdem die Anzahl der insgesamt zu verschickenden Briefe und eine Grenze, wie viele Städte maximal übereinander liegen dürfen. Unter diesen Vorgaben versucht Greedy Equal dann, das Bild zu färben.</p>
 
   <div class="video-placeholder">
     <div class="play-btn">▶</div>
     <span style="font-size:0.9rem; color: var(--blue-light);">Video: Greedy Equal Schritt für Schritt (folgt)</span>
   </div>
 
-  <p>Schauen wir uns ein Beispiel an. Das Land hat 84 Einwohnende und 5 Städte. Greedy Equal teilt das Rechteck in gleich große horizontale Schichten ein und platziert die Städte von klein nach groß — von links nach rechts und von unten nach oben.</p>
-
-  <div class="img-placeholder">🖼 Bild: greedy_ex1.png – Ausgangssituation</div>
-  <div class="img-placeholder">🖼 Bild: greedy_ex2.png – Schritte der Einfärbung</div>
-
-  <p>So wird sichergestellt, dass größere Städte immer mindestens genauso viele Briefe erhalten wie kleinere — Kriterium 2 ist damit erfüllt. Wenn eine Stadt ihre maximale Briefanzahl nicht ausschöpfen kann, wird der freie Platz gleichmäßig auf die darüberliegenden Schichten verteilt.</p>
-
   <div class="foldout">
     <div class="foldout-header" onclick="toggleFoldout(this)">
-      <span class="foldout-question">💡 Was passiert, wenn Greedy Equal keine Lösung findet?</span>
+      <span class="foldout-question">💡 Wie wählen wir die maximale Anzahl Städte?</span>
       <span class="foldout-icon">+</span>
     </div>
     <div class="foldout-body">
-      <p>Greedy Equal kann scheitern, wenn zu wenige Schichten erlaubt sind. In dem Fall erhöhen wir die erlaubte Anzahl Schichten um eins und versuchen es erneut. Man kann beweisen, dass Greedy Equal spätestens dann eine Lösung findet, wenn man ihm 2 Schichten mehr als theoretisch nötig erlaubt.</p>
+      <p>Man kann nicht einfach jede beliebige Grenze verlangen. Würden wir zum Beispiel vorgeben, dass nie mehr als eine Stadt angeschrieben werden darf, aber eine Stadt eine kleinere Maximalhöhe hat als wir Briefe verschicken wollen, wäre das Problem unlösbar. Eine gewisse Anzahl Städte übereinander muss erlaubt sein, damit es überhaupt möglich ist, alle Kriterien zu erfüllen.</p>
+      <p>Wie groß diese Anzahl ist, hängt immer von der spezifischen Situation ab. Wir kennen sie nicht, sondern starten einfach bei 1 und erhöhen die Vorgabe so lange, bis Greedy Equal eine Lösung gefunden hat. Spätestens, wenn wir alle Städte übereinander erlauben, gibt es schließlich immer eine Lösung. Man kann beweisen, dass Greedy Equal schon dann eine Lösung findet, wenn man ihm 2 Städte mehr als die theoretisch notwendige Mindestanzahl erlaubt — das bedeutet, es müssen höchstens 2 Städte mehr als nötig kontaktiert werden.</p>
     </div>
   </div>
 
-  <div class="highlight-box">
-    <strong>Das Ergebnis:</strong> Greedy Equal garantiert Fairness, Gerechtigkeitsempfinden und die Einladungsgrenze — und begrenzt gleichzeitig die Anzahl kontaktierter Städte auf ein praktisch handhabbares Minimum.
+  <h3>Ein Beispiel Schritt für Schritt</h3>
+
+  <p>Das Land hat 84 Einwohnende und 5 Städte: Die grüne Stadt hat 6, die rote 12, die blaue 14 und die orange und gelbe jeweils 26 Einwohnende. Die Städte können folgende Anzahlen Briefe maximal versenden: 2 (grün), 4 (rot), 8 (blau), 10 (orange), 10 (gelb). Wir wollen insgesamt 12 Einladungsbriefe verschicken und erlauben maximal 3 Städte gleichzeitig.</p>
+
+  <div class="img-placeholder small">🖼 Bild: greedy_ex1.png – Ausgangssituation mit 5 Städten</div>
+
+  <p>Das Rechteck hat Höhe 12. Damit wieder ein Feld pro Einwohner*in entsteht, setzen wir die Breite auf 7 und müssen dann 6 Felder grün, 12 Felder rot, 14 Felder blau und jeweils 26 Felder orange und gelb färben.</p>
+
+  <div class="steps">
+    <div class="step">
+      <span class="step-label">Schritt 1</span>
+      <span>Das Rechteck wird in <strong>drei gleich große horizontale Schichten</strong> der Höhe 4 eingeteilt — so viele Schichten, wie Städte gleichzeitig erlaubt sind.</span>
+    </div>
+    <div class="step">
+      <span class="step-label">Schritt 2</span>
+      <span>Wir starten mit der <strong>kleinsten Stadt</strong>, der grünen. Ihre Maximalhöhe ist 2 — sie kann die Schichthöhe von 4 nicht voll ausnutzen. Sie wird unten links platziert. Die rote Stadt (Maximalhöhe 4) wird mit der vollen Schichthöhe daneben platziert.</span>
+    </div>
+    <div class="step">
+      <span class="step-label">Schritt 3</span>
+      <span>Die <strong>blaue Stadt</strong> kommt als nächstes. Sie darf ihre Maximalhöhe von 8 nicht voll ausnutzen, weil die erste Schicht nur Höhe 4 hat. Beim Platzieren erreichen wir den rechten Rand des Rechtecks.</span>
+    </div>
+    <div class="step">
+      <span class="step-label">Schritt 4</span>
+      <span>Der <strong>restliche Anteil der blauen Stadt</strong> kommt in die zweite Schicht. Da die grüne Stadt Platz gelassen hat, wird dieser gleichmäßig auf die darüberliegenden Schichten aufgeteilt — die zweite und dritte Schicht bekommen links etwas mehr Höhe als rechts.</span>
+    </div>
+    <div class="step">
+      <span class="step-label">Schritt 5</span>
+      <span>Die <strong>orange und gelbe Stadt</strong> (gleich groß) füllen die restlichen Felder der zweiten und dritten Schicht. Am Ende ist das Rechteck vollständig und fair eingefärbt.</span>
+    </div>
   </div>
 
-  <p>In der Praxis mit echten deutschen Städtedaten wurden alle vier Kriterien erfüllt. Die Methode läuft schnell genug, um auf einem normalen Computer in wenigen Sekunden ein Ergebnis zu liefern.</p>
+  <div class="img-placeholder">🖼 Bild: greedy_ex2.png – Alle Schritte der Einfärbung</div>
 
-  <div class="img-placeholder">🖼 Bild: greedy_practical.png – Realistisches Beispiel mit vielen Städten</div>
+  <p>Greedy Equal bildet also so viele Schichten, wie Städte übereinander erlaubt sind, und platziert die Städte von klein nach groß in den Schichten. So versucht die Methode, allen ungefähr die gleiche Höhe zu geben. Nur wenn eine Stadt die Höhe aufgrund ihrer Maximalhöhe nicht ausfüllen kann, wird der frei gewordene Platz gleichmäßig unter den höheren Schichten aufgeteilt. Dank der Schichten wird sichergestellt, dass die größeren Städte, die später dran sind, mindestens genauso hoch sind wie die früheren, kleineren Städte.</p>
+
+  <div class="highlight-box">
+    <strong>Das Ergebnis:</strong> Greedy Equal garantiert alle drei ersten Kriterien: Jede Stadt erhält genau die Fläche, die ihr zusteht (Fairness). Kleinere Städte bekommen nie mehr Briefe als größere (Gerechtigkeitsempfinden). Und die Maximalhöhe jeder Stadt wird immer eingehalten (Einladungsgrenze). Das vierte Kriterium — möglichst wenige Städte gleichzeitig — wird fast perfekt erfüllt, mit höchstens 2 Städten mehr als theoretisch nötig.
+  </div>
+
+  <div class="foldout">
+    <div class="foldout-header" onclick="toggleFoldout(this)">
+      <span class="foldout-question">💡 Woran erkennt man, wenn Greedy Equal keine Lösung findet?</span>
+      <span class="foldout-icon">+</span>
+    </div>
+    <div class="foldout-body">
+      <p>Schauen wir uns dasselbe Beispiel an, aber mit maximal zwei Städten übereinander. Greedy Equal arbeitet also nur mit zwei Schichten. Die erste Schicht kann von der grünen Stadt wieder nicht ausgefüllt werden, sodass der übrige Platz an die zweite Schicht gegeben wird. Die zweite Schicht beginnt dann mit der blauen Stadt — allerdings hat diese eine Maximalhöhe von 8, die Schicht hat aber Höhe 10. Es bleibt also oben links eine Lücke im Bild. Das führt dazu, dass am Ende nicht mehr genügend Felder für die gelbe Stadt übrig sind. Daran erkennt man, dass Greedy Equal gescheitert ist — man muss dann eine Schicht mehr erlauben.</p>
+      <div class="img-placeholder small" style="margin-top: 1rem;">🖼 Bild: greedy_ex3.png – Greedy Equal scheitert bei t = 2</div>
+    </div>
+  </div>
 
   <div class="foldout">
     <div class="foldout-header" onclick="toggleFoldout(this)">
@@ -425,10 +521,14 @@
       <span class="foldout-icon">+</span>
     </div>
     <div class="foldout-body">
-      <p>Das zugrundeliegende Problem — die minimale Anzahl kontaktierter Städte zu finden — gehört zu einer Klasse von Problemen, die sich höchstwahrscheinlich nicht effizient perfekt lösen lassen (NP-schwer). Greedy Equal ist deshalb ein kluger Kompromiss: Es ist effizient, verständlich und liefert in der Praxis sehr gute Ergebnisse.</p>
+      <p>Wenn man alle vier Kriterien gleichzeitig erfüllen möchte, tauchen Zielkonflikte auf und man muss einen möglichst guten Kompromiss finden. Das zugrundeliegende Problem — die minimale Anzahl kontaktierter Städte zu finden — gehört sogar zu einer Klasse von Problemen, die sich höchstwahrscheinlich nicht perfekt und effizient lösen lassen. Greedy Equal ist deshalb ein kluger Kompromiss: Es ist effizient, verständlich und liefert in der Praxis sehr gute Ergebnisse — mit der Garantie, höchstens 2 Städte mehr als theoretisch nötig zu kontaktieren.</p>
     </div>
   </div>
+
+  <p>In der Praxis mit echten deutschen Städtedaten — über 100.000 Kommunen und 84 Millionen Einwohnende — funktioniert Greedy Equal schnell und zuverlässig auf einem normalen Computer.</p>
+
 </section>
+
 
 <footer>
   City Sampling – Projekt zur fairen Auswahl für Bürger*innenräte &nbsp;|&nbsp;
