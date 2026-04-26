@@ -483,7 +483,9 @@
 
   <p>Wie genau färben wir das Rechteck und erfüllen dabei die gewünschten Kriterien? Unsere Methode namens <strong>Greedy Equal</strong> bekommt von uns eine Liste der Städte, ihrer Einwohnendenzahlen und maximal erlaubter Höhen;
     außerdem die Anzahl der insgesamt zu verschickenden Briefe und eine Grenze, wie viele Städte maximal übereinander liegen dürfen. 
-    Unter diesen Vorgaben versucht Greedy Equal dann, das Bild zu färben.</p>
+    Unter diesen Vorgaben versucht Greedy Equal dann, das Bild zu färben.
+    Das Bild wird in Schichten von unten nach oben und von links nach rechts aufgefüllt, wobei die Städte nach Größe sortiert verarbeitet werden.
+    Bevor wir die Methode im Detail anschauen, hier schonmal ein Beispiel: </p>
 
   <video width="100%" controls style="border-radius: 10px; margin: 1.8rem 0;">
     <source src="GreedyEqualScence_big.mp4" type="video/mp4">
@@ -530,11 +532,16 @@
     </div>
     <div class="step">
       <span class="step-label">Schritt 4</span>
-      <span>Der <strong>restliche Anteil der blauen Stadt</strong> kommt in die zweite Schicht. Da die grüne Stadt Platz gelassen hat, wird dieser gleichmäßig auf die darüberliegenden Schichten aufgeteilt — die zweite und dritte Schicht bekommen links etwas mehr Höhe als rechts.</span>
+      <span>Der <strong>restliche Anteil der blauen Stadt</strong> kommt in die zweite Schicht. 
+        Vorher müssen die Grenzen der Schichten im linken Bereich neu gesetzt werden, da die grüne Stadt Platz gelassen hat.
+        Dieser wird gleichmäßig auf die darüberliegenden Schichten aufgeteilt, sodass die zweite und dritte Schicht links etwas mehr Höhe als rechts bekommen.</span>
     </div>
     <div class="step">
       <span class="step-label">Schritt 5</span>
-      <span>Die <strong>orange und gelbe Stadt</strong> (gleich groß) füllen die restlichen Felder der zweiten und dritten Schicht. Am Ende ist das Rechteck vollständig und fair eingefärbt.</span>
+      <span>Die <strong>orange und gelbe Stadt</strong> (gleich groß) füllen die restlichen Felder der zweiten und dritten Schicht. 
+        elche der beiden gleich großen Städte wir zuerst betrachten, können wir uns aussuchen und wählen hier orange zuerst.
+        Am Ende ist das Rechteck vollständig und fair eingefärbt.
+        Jede Stadt hat genau so viele Felder wie Einwohnende. </span>
     </div>
   </div>
 
@@ -542,11 +549,24 @@
 
   <div class="highlight-box">
     <strong>Das Ergebnis:</strong> Greedy Equal garantiert alle drei ersten Kriterien: 
-    Jede Stadt erhält genau die Fläche, die ihr zusteht (Fairness). 
-    Kleinere Städte bekommen nie mehr Briefe als größere (Gerechtigkeitsempfinden). 
-    Und die Maximalhöhe jeder Stadt wird immer eingehalten (Einladungsgrenze). 
+    Jede Stadt erhält genau die Fläche, die ihr zusteht (Fairness),
+    kleinere Städte bekommen nie mehr Briefe als größere (Gerechtigkeitsempfinden),
+    und die Maximalhöhe jeder Stadt wird immer eingehalten (Einladungsgrenze). 
     Das vierte Kriterium — möglichst wenige Städte gleichzeitig — wird fast perfekt erfüllt, mit höchstens 2 Städten mehr als theoretisch nötig.
     Greedy Equal funktioniert außerdem schnell und zuverlässig auf einem normalen Computer.
+  </div>
+
+  <div class="foldout">
+    <div class="foldout-header" onclick="toggleFoldout(this)">
+      <span class="foldout-question">💡 Warum wird die Maximalhöhe immer eingehalten?</span>
+      <span class="foldout-icon">+</span>
+    </div>
+    <div class="foldout-body">
+      <p> Weil beim Platzieren einer Stadt immer überprüft wird, ob die Höhe der Schicht zu hoch für die Stadt ist und sie sonst Platz nach oben lässt.
+          Bei sehr großen Städten kann es theoretisch vorkommen, dass sich eine Stadt "selbst überholt", also über sich selbst geschichtet wird und die Maximalhöhe deshalb vielleicht verletzt wird.
+          In der Praxis passiert das einerseits kaum und würde andererseits auch kein Problem darstellen, da die erlaubten Höhen bei großen Städten deutlich größer als die Höhe des Rechtecks sind.
+        </p>
+    </div>
   </div>
 
   <div class="foldout">
