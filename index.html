@@ -299,7 +299,22 @@
       <span class="foldout-icon">+</span>
     </div>
     <div class="foldout-body">
-      <p>Gründe dafür sind unter anderem Datenschutz und Schutz vor Missbrauch der Daten durch den Staat. Jede Kommune verwaltet die Daten ihrer Einwohnenden eigenständig. Ein zentrales Bundesmelderegister wurde in Deutschland aus genau diesen Gründen bisher nicht eingeführt — ein entsprechendes Gesetz scheiterte unter anderem an datenschutzrechtlichen Bedenken.</p>
+      <p>Gründe dafür sind unter anderem Datenschutz und Schutz vor Missbrauch der Daten durch den Staat. Jede Kommune verwaltet die Daten ihrer Einwohnenden eigenständig. Ein Gesetzesentwurf für ein zentrales Bundesmelderegister 2008 scheiterte unter anderem an datenschutzrechtlichen Bedenken.</p>
+    </div>
+  </div>
+
+  <div class="foldout">
+    <div class="foldout-header" onclick="toggleFoldout(this)">
+      <span class="foldout-question">💡 Könnte man nicht einfach alle Städte auswählen und ihnen ihren Anteil an Briefen geben?</span>
+      <span class="foldout-icon">+</span>
+    </div>
+    <div class="foldout-body">
+      <p>Dafür gibt es viel zu viele — zum 1. Januar 2026 gab es 10.747 Gemeinden in Deutschland.
+        Es wäre ein riesiger Aufwand, mit allen Kontakt aufzunehmen, nur um dann sehr wenige Briefe pro Stadt zu versenden.
+        Das lohnt sich nicht.
+        Wenn wir 20.000 Einladungen verschicken, würde z.B. alle Gemeinden mit bis zu 4.100 Einwohnenden nicht mal ein voller Brief zustehen.
+        <!-- Deutschlands kleinster Gemeinde Dierfeld mit 9 Einwohnenden würden z.B. nur 0,002 Briefe zustehen, wenn insgesamt 20.000 Einladungsbriefe verschickt werden. -->
+        </p>
     </div>
   </div>
 
@@ -313,49 +328,86 @@
 
   <img src="population.png" alt="Bevölkerung verteilt auf vier Städte" class="figure" />
 
-  <p>Wir möchten zu unserem Bürger*innenrat insgesamt 10 Einladungsbriefe verschicken. Dieses Problem kann man gut bildlich darstellen: Wir malen ein Rechteck der Höhe 10 und Breite 6 mit 10 × 6 = 60 Feldern — also genau ein Feld pro Bewohner*in unseres Landes. Jede Person wird in einem Feld platziert, sodass wir 30 gelbe Felder, 12 rote und blaue Felder und 6 grüne Felder erhalten.</p>
+  <p>Wir möchten zu unserem Bürger*innenrat insgesamt 10 Einladungsbriefe verschicken. Dieses Problem kann man gut bildlich darstellen: Wir malen ein Rechteck der Höhe 10 und Breite 6 mit 10 × 6 = 60 Feldern — also genau ein Feld pro Bewohner*in unseres Landes. Jede Person wird in einem Feld platziert, sodass wir 30 gelbe Felder, 12 rote und blaue Felder und 6 grüne Felder erhalten.
+  Das könnte zum Beispiel so aussehen: </p>
 
   <img src="rectangle.png" alt="Eingefärbtes Rechteck mit Feldern pro Person" class="figure" />
 
-  <p>Dann würfeln wir zufällig eine der 6 Spalten aus. Jede Spalte besteht aus 10 Feldern — genau die richtige Anzahl Einladungen, die wir verschicken wollen. Wird zum Beispiel eine 1 gewürfelt, verschicken wir 6 Briefe an die blaue und 4 Briefe an die rote Stadt. Bei einer 2 verschicken wir 6 Briefe an die blaue und 4 Briefe an die gelbe Stadt — und so weiter.</p>
+  <p>Dann würfeln wir zufällig eine der 6 Spalten aus. Jede Spalte besteht aus 10 Feldern — genau die richtige Anzahl Einladungen, die wir verschicken wollen. Wird zum Beispiel eine 1 gewürfelt, verschicken wir 6 Briefe an die blaue und 4 Briefe an die rote Stadt. 
+    Bei einer 2 verschicken wir 6 Briefe an die blaue und 4 Briefe an die gelbe Stadt und so weiter.</p>
 
   <img src="dice.png" alt="Würfelwurf und Spaltenauswahl" class="figure" />
 
   <div class="highlight-box">
-    <strong>Das Entscheidende:</strong> Wichtig für die Fairness ist nur, dass jede Stadt genau so viele Felder bekommt wie sie Einwohnende hat. Der Anteil der gelb gefärbten Fläche am gesamten Rechteck muss dem Bevölkerungsanteil der gelben Stadt entsprechen — genauso für alle anderen Farben. Solange die Fläche fair aufgeteilt ist, hat jede Person garantiert dieselbe Auswahlwahrscheinlichkeit.
+    <strong>Fairness:</strong> Wichtig für die Fairness ist nur, dass jede Stadt genau so viele Felder bekommt wie sie Einwohnende hat. 
+    Oder, in anderen Worten: Der Anteil der gelb gefärbten Fläche am gesamten Rechteck muss dem Bevölkerungsanteil der gelben Stadt an der Gesamtbevölkerung entsprechen, genauso für die anderen Farben.
+    Es kann sein, dass eine Stadt eine geringe Chance hat, überhaupt ausgewählt zu werden, dafür aber im Falle einer Auswahl viele Einladungen versenden darf. Das erkennt man an einer schmalen und hohen Form im Bild. 
+    Die grüne Stadt dagegen hat eine höhere Chance ausgewählt zu werden, darf dann aber nur wenige Briefe verteilen. Solange die Anzahl der Felder bzw. die Fläche fair aufgeteilt ist, hat jede Person sicher dieselbe Auswahlwahrscheinlichkeit.
   </div>
 
-  <p>Es kann sein, dass eine Stadt eine geringe Chance hat, überhaupt ausgewählt zu werden, dafür aber im Falle einer Auswahl viele Einladungen versenden darf. Das erkennt man an einer schmalen und hohen Form im Bild. Die grüne Stadt dagegen hat eine höhere Chance ausgewählt zu werden, darf dann aber nur wenige Briefe verteilen. Solange die Anzahl der Felder bzw. die Fläche fair aufgeteilt ist, hat jede Person sicher dieselbe Auswahlwahrscheinlichkeit.</p>
+  <p>Sind wir jetzt fertig? Ein Rechteck einzufärben ist schließlich nicht schwer. Aber wir können das Rechteck auf ganz viele Arten färben, mit verschiedenen Vor- und Nachteilen.</p>
 
-  <p>Sind wir jetzt fertig? Ein Rechteck einzufärben ist schließlich nicht schwer. Aber wir können das Rechteck auf ganz viele Arten färben — mit verschiedenen Vor- und Nachteilen.</p>
-
-  <h3>Verschiedene Möglichkeiten der Einfärbung</h3>
+  <h3>Wie färben wir das Rechteck?</h3>
 
   <p>Hier sind einige andere Möglichkeiten, das Rechteck einzufärben:</p>
 
   <img src="options2.png" alt="Vier verschiedene Einfärbe-Optionen im Vergleich" class="figure" />
 
-  <p><strong>Bild 1 – Chaotisch:</strong> Man kann das Bild ganz chaotisch gestalten. Das wird allerdings schnell unübersichtlich.</p>
+  <p><strong>Bild 1 – Chaotisch:</strong> <br>
+    So ein chaotisches Bild wie dieses wird allerdings schnell unübersichtlich.</p>
 
-  <p><strong>Bild 2 – Regelmäßige Schichten:</strong> Stattdessen kann man die Farben ganz regelmäßig in Schichten anordnen. Hier muss gar nicht mehr gewürfelt werden, weil jede Spalte gleich aussieht — in jedem Falle werden alle vier Städte ausgewählt und erhalten ihren fairen Anteil an Briefen.</p>
+  <p><strong>Bild 2 – Regelmäßige Schichten:</strong> <br>
+    Stattdessen kann man die Farben regelmäßig in Schichten anordnen. 
+    Hier muss gar nicht mehr gewürfelt werden, weil jede Spalte gleich aussieht. 
+    In jedem Falle werden alle vier Städte ausgewählt und erhalten ihren fairen Anteil an Briefen.</p>
 
-  <p>Beide Bilder haben aber einen entscheidenden Nachteil: Es kann passieren, dass alle Städte des Landes gleichzeitig ausgewählt werden und Briefe verschicken müssen. In Ländern mit vielen Städten ist es nicht umsetzbar, mit allen Kontakt aufzunehmen und sich zu koordinieren.</p>
+  <p>Beide Bilder haben aber einen entscheidenden Nachteil: 
+    Es kann passieren, dass alle Städte des Landes gleichzeitig ausgewählt werden und Briefe verschicken müssen. 
+    In Ländern mit vielen Städten ist es nicht umsetzbar, mit allen Kontakt aufzunehmen und sich zu koordinieren.
+    Wir möchten also pro Spalte nur eine begrenzte Anzahl verschiedener Farben haben.</p>
 
-  <p>Wir möchten also pro Spalte nur eine begrenzte Anzahl verschiedener Farben haben.</p>
+  <p><strong>Bild 3 – Maximal zwei Farben pro Spalte:</strong> <br>
+    Hier liegen immer nur zwei Farben übereinander, es werden also nur zwei Städte gleichzeitig ausgewählt.
+    Es entstehen allerdings zwei andere Nachteile. 
+    Erstens werden alle Einwohnenden der grünen Stadt eingeladen, falls eine 1 gewürfelt wird.
+    Tatsächlich hat aber jede Stadt eine maximale Anzahl an Briefen, die sie verschicken darf, die kleiner als die Anzahl Einwohnender ist. <p>
 
-  <p><strong>Bild 3 – Maximal zwei Farben pro Spalte:</strong> Hier entstehen allerdings zwei andere Nachteile. Erstens werden alle Einwohnenden der grünen Stadt eingeladen, falls eine 1 gewürfelt wird — dabei hat aber jede Stadt eine maximale Anzahl an Briefen, die sie verschicken darf. Ein weiterer Grund ist Datenschutz: Es sollen nie alle Adressen einer Stadt gleichzeitig herausgegeben werden. Zweitens kann es vorkommen, dass eine deutlich kleinere Stadt viel mehr Briefe erhält als eine viel größere — das wirkt ungerecht, auch wenn der Prozess insgesamt fair ist.</p>
-
-  <div class="foldout">
+      <div class="foldout">
     <div class="foldout-header" onclick="toggleFoldout(this)">
       <span class="foldout-question">💡 Warum darf eine Stadt nicht alle ihre Adressen herausgeben?</span>
       <span class="foldout-icon">+</span>
     </div>
     <div class="foldout-body">
-      <p>Es gibt zwei Gründe: Erstens soll Überrepräsentation einer Stadt vermieden werden — wenn alle Einwohnenden einer kleinen Stadt eingeladen werden, ist diese Stadt unverhältnismäßig stark vertreten. Zweitens ist Datenschutz ein wichtiger Grund: Die Herausgabe aller Adressen einer Stadt auf einmal birgt ein höheres Risiko für Missbrauch. Deshalb gibt es für jede Stadt eine maximale Anzahl Briefe, die sie verschicken darf.</p>
+      <p>Es gibt zwei Gründe: Erstens soll Überrepräsentation einer Stadt vermieden werden — wenn alle Einwohnenden einer kleinen Stadt eingeladen werden, ist diese Stadt unverhältnismäßig stark vertreten. 
+        Zweitens ist Datenschutz ein wichtiger Grund: Die Herausgabe aller Adressen einer Stadt auf einmal birgt ein höheres Risiko für Missbrauch. 
+        Deshalb gibt es für jede Stadt eine maximale Anzahl Briefe, die sie verschicken darf.</p>
+    </div>
+  </div>
+    
+    <p>Zweitens kann es vorkommen, dass eine deutlich kleinere Stadt viel mehr Briefe erhält als eine größere.
+    Wenn nämlich eine 2 oder 4 gewürfelt wird, erhält die gelbe Stadt nur einen einzigen Brief, während die deutlich kleinere rote bzw. blaue Stadt ganze 9 Briefe erhält.
+    Weil die Briefe so unbalanciert verteilt sind, empfinden Menschen das im Nachhinein oft als ungerecht.
+    </p>
+
+  <div class="foldout">
+    <div class="foldout-header" onclick="toggleFoldout(this)">
+      <span class="foldout-question">💡 Widerspricht das unserem Fairness-Gedanken?</span>
+      <span class="foldout-icon">+</span>
+    </div>
+    <div class="foldout-body">
+      <p> Nein, der Auswahlprozess ist trotzdem insgesamt fair, da jede Stadt genau so viele Felder wie Einwohnende hat. 
+        Wenn eine 2 oder 4 gewürfelt wird, erhält die gelbe Stadt zwar nur einen Brief, aber bei einer 3, 5 oder 6 erhält sie viel mehr.
+        Das gleicht sich insgesamt aus. 
+        Dennoch könnten es Menschen im Nachhinein als unfair empfinden, wenn die Briefe so unbalanciert verteilt werden.
+        Es geht hier also eher um das Gerechtigkeitsempfinden, nachdem feststeht, welche Spalte gewürfelt wurde.
+        </p>
     </div>
   </div>
 
-  <p><strong>Bild 4 – Der beste Kompromiss:</strong> Es werden nie mehr als drei verschiedene Städte ausgewählt, keine Stadt muss jemals die Adressen aller Einwohnenden herausgeben, und kleinere Städte erhalten immer weniger Briefe als große Städte. In Beispielen mit mehr Städten wird es sehr wichtig, Lösungen zu finden, bei denen nicht alle Städte kontaktiert werden müssen.</p>
+  <p><strong>Bild 4 – Der beste Kompromiss:</strong> <br>
+    Vielleicht der beste Kompromiss aus den genannten Vor- und Nachteilen ist hier abgebildet.
+    Es werden immerhin nie mehr als drei verschiedene Städte ausgewählt, keine Stadt muss jemals die Adressen aller Einwohnenden herausgeben, und kleinere Städte erhalten immer weniger Briefe als große Städte. 
+    In Beispielen mit mehr Städten wird es sehr wichtig, Lösungen zu finden, bei denen nicht alle Städte kontaktiert werden müssen.</p>
 
   <h3>Die vier Kriterien</h3>
 
