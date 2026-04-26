@@ -395,7 +395,7 @@
 
   <div class="foldout">
     <div class="foldout-header" onclick="toggleFoldout(this)">
-      <span class="foldout-question">💡 Widerspricht das unserem Fairness-Gedanken?</span>
+      <span class="foldout-question">💡 Widerspricht das nicht unserem Fairness-Gedanken?</span>
       <span class="foldout-icon">+</span>
     </div>
     <div class="foldout-body">
@@ -403,7 +403,7 @@
         Wenn eine 2 oder 4 gewürfelt wird, erhält die gelbe Stadt zwar nur einen Brief, aber bei einer 3, 5 oder 6 erhält sie viel mehr.
         Das gleicht sich insgesamt aus. 
         Dennoch könnten es Menschen im Nachhinein als unfair empfinden, wenn die Briefe so unbalanciert verteilt werden.
-        Es geht hier also eher um das Gerechtigkeitsempfinden, nachdem feststeht, welche Spalte gewürfelt wurde.
+        Es geht hier also eher um das Gerechtigkeitsempfinden.
         </p>
     </div>
   </div>
@@ -416,7 +416,7 @@
   <h3>Kriterien für das Einfärben</h3>
 
   <p>Die entscheidende Frage ist also: Nach welchen Regeln und auf welche Weise soll das Rechteck eingefärbt werden? 
-    Die folgenden Kriterien sollten dabei beachtet werden:</p>
+    Die folgenden Kriterien sollten beachtet werden:</p>
 
   <div class="criteria-list">
     <div class="criteria-item">
@@ -455,9 +455,13 @@
 
   <h3>Von Spalten zu kontinuierlichen Bildern</h3>
 
-  <p>In der Praxis sind die Länder natürlich viel größer und es gibt viel mehr Städte. Dann stellen wir die Bilder der Anschaulichkeit halber nicht mehr mit einzelnen Feldern und Spalten dar — man kann sich vorstellen, dass die Felder dann so klein werden, dass sie den Pixeln im Bild entsprechen.</p>
+  <p>In der Praxis sind die Länder natürlich viel größer und es gibt viel mehr Städte. Dann stellen wir die Bilder der Anschaulichkeit halber nicht mehr mit einzelnen Feldern und Spalten dar. 
+    Man kann sich vorstellen, dass die Felder dann so klein werden, dass sie den Pixeln im Bild entsprechen.</p>
 
-  <p>Die Höhe des Rechtecks ist weiterhin die Anzahl der zu verschickenden Briefe und die Breite der Einfachheit halber 1. Anstatt zufällig eine Spalte auszuwählen, wählen wir nun eine zufällige x-Koordinate zwischen 0 und 1. An dieser Stelle ziehen wir eine Linie nach oben und schauen, welche Farben jeweils mit welcher Höhe vorkommen. Die Höhe jeder Farbe entscheidet dann, wie viele Briefe diese Stadt bekommt.</p>
+  <p>Die Höhe des Rechtecks ist weiterhin die Anzahl der zu verschickenden Briefe und die Breite der Einfachheit halber 1. 
+    Anstatt zufällig eine Spalte auszuwählen, wählen wir nun eine zufällige x-Koordinate zwischen 0 und 1. 
+    An dieser Stelle ziehen wir eine Linie nach oben und schauen, welche Farben jeweils mit welcher Höhe vorkommen. 
+    Die Höhe jeder Farbe entscheidet dann, wie viele Briefe diese Stadt bekommt.</p>
 
   <p>Bild 4 aus unserem Beispiel sähe dann so aus, wenn zufällig die Koordinate 0,75 ausgewählt wird:</p>
 
@@ -477,7 +481,9 @@
   <div class="section-label">Teil 2</div>
   <h2>Greedy Equal</h2>
 
-  <p>Wie genau färben wir das Rechteck und erfüllen dabei die gewünschten Kriterien? Unsere Methode namens <strong>Greedy Equal</strong> bekommt von uns eine Liste der Städte, ihrer Einwohnerzahlen und maximal erlaubter Höhen — außerdem die Anzahl der insgesamt zu verschickenden Briefe und eine Grenze, wie viele Städte maximal übereinander liegen dürfen. Unter diesen Vorgaben versucht Greedy Equal dann, das Bild zu färben.</p>
+  <p>Wie genau färben wir das Rechteck und erfüllen dabei die gewünschten Kriterien? Unsere Methode namens <strong>Greedy Equal</strong> bekommt von uns eine Liste der Städte, ihrer Einwohnendenzahlen und maximal erlaubter Höhen;
+    außerdem die Anzahl der insgesamt zu verschickenden Briefe und eine Grenze, wie viele Städte maximal übereinander liegen dürfen. 
+    Unter diesen Vorgaben versucht Greedy Equal dann, das Bild zu färben.</p>
 
   <video width="100%" controls style="border-radius: 10px; margin: 1.8rem 0;">
     <source src="GreedyEqualScence_big.mp4" type="video/mp4">
@@ -489,8 +495,13 @@
       <span class="foldout-icon">+</span>
     </div>
     <div class="foldout-body">
-      <p>Man kann nicht einfach jede beliebige Grenze verlangen. Würden wir zum Beispiel vorgeben, dass nie mehr als eine Stadt angeschrieben werden darf, aber eine Stadt eine kleinere Maximalhöhe hat als wir Briefe verschicken wollen, wäre das Problem unlösbar. Eine gewisse Anzahl Städte übereinander muss erlaubt sein, damit es überhaupt möglich ist, alle Kriterien zu erfüllen.</p>
-      <p>Wie groß diese Anzahl ist, hängt immer von der spezifischen Situation ab. Wir kennen sie nicht, sondern starten einfach bei 1 und erhöhen die Vorgabe so lange, bis Greedy Equal eine Lösung gefunden hat. Spätestens, wenn wir alle Städte übereinander erlauben, gibt es schließlich immer eine Lösung. Man kann beweisen, dass Greedy Equal schon dann eine Lösung findet, wenn man ihm 2 Städte mehr als die theoretisch notwendige Mindestanzahl erlaubt — das bedeutet, es müssen höchstens 2 Städte mehr als nötig kontaktiert werden.</p>
+      <p>Man kann nicht einfach jede beliebige Grenze verlangen. 
+        Würden wir zum Beispiel vorgeben, dass nie mehr als eine Stadt angeschrieben werden darf, aber eine Stadt nicht alle Briefe verschicken darf, wäre das Problem unlösbar. 
+        Eine gewisse Anzahl Städte übereinander muss erlaubt sein, damit es überhaupt möglich ist, alle Kriterien zu erfüllen.</p>
+      <p>Wie groß diese Anzahl ist, hängt immer von der spezifischen Situation ab. Wir kennen sie nicht, sondern starten einfach bei 1 und erhöhen die Vorgabe so lange, bis Greedy Equal eine Lösung gefunden hat. 
+        Spätestens, wenn wir alle Städte übereinander erlauben, gibt es schließlich immer eine Lösung. 
+        Man kann beweisen, dass Greedy Equal schon dann eine Lösung findet, wenn man ihm 2 Städte mehr als die theoretisch notwendige Mindestanzahl erlaubt.
+        Das bedeutet, es müssen höchstens 2 Städte mehr als nötig kontaktiert werden.</p>
     </div>
   </div>
 
@@ -502,6 +513,8 @@
 
   <p>Das Rechteck hat Höhe 12. Damit wieder ein Feld pro Einwohner*in entsteht, setzen wir die Breite auf 7 und müssen dann 6 Felder grün, 12 Felder rot, 14 Felder blau und jeweils 26 Felder orange und gelb färben.</p>
 
+  <img src="greedy_ex2.png" alt="Alle Schritte der Einfärbung durch Greedy Equal" class="figure" />
+  
   <div class="steps">
     <div class="step">
       <span class="step-label">Schritt 1</span>
@@ -525,12 +538,15 @@
     </div>
   </div>
 
-  <img src="greedy_ex2.png" alt="Alle Schritte der Einfärbung durch Greedy Equal" class="figure" />
-
   <p>Greedy Equal bildet also so viele Schichten, wie Städte übereinander erlaubt sind, und platziert die Städte von klein nach groß in den Schichten. So versucht die Methode, allen ungefähr die gleiche Höhe zu geben. Nur wenn eine Stadt die Höhe aufgrund ihrer Maximalhöhe nicht ausfüllen kann, wird der frei gewordene Platz gleichmäßig unter den höheren Schichten aufgeteilt. Dank der Schichten wird sichergestellt, dass die größeren Städte, die später dran sind, mindestens genauso hoch sind wie die früheren, kleineren Städte.</p>
 
   <div class="highlight-box">
-    <strong>Das Ergebnis:</strong> Greedy Equal garantiert alle drei ersten Kriterien: Jede Stadt erhält genau die Fläche, die ihr zusteht (Fairness). Kleinere Städte bekommen nie mehr Briefe als größere (Gerechtigkeitsempfinden). Und die Maximalhöhe jeder Stadt wird immer eingehalten (Einladungsgrenze). Das vierte Kriterium — möglichst wenige Städte gleichzeitig — wird fast perfekt erfüllt, mit höchstens 2 Städten mehr als theoretisch nötig.
+    <strong>Das Ergebnis:</strong> Greedy Equal garantiert alle drei ersten Kriterien: 
+    Jede Stadt erhält genau die Fläche, die ihr zusteht (Fairness). 
+    Kleinere Städte bekommen nie mehr Briefe als größere (Gerechtigkeitsempfinden). 
+    Und die Maximalhöhe jeder Stadt wird immer eingehalten (Einladungsgrenze). 
+    Das vierte Kriterium — möglichst wenige Städte gleichzeitig — wird fast perfekt erfüllt, mit höchstens 2 Städten mehr als theoretisch nötig.
+    Greedy Equal funktioniert außerdem schnell und zuverlässig auf einem normalen Computer.
   </div>
 
   <div class="foldout">
@@ -553,8 +569,6 @@
       <p>Wenn man alle vier Kriterien gleichzeitig erfüllen möchte, tauchen Zielkonflikte auf und man muss einen möglichst guten Kompromiss finden. Das zugrundeliegende Problem — die minimale Anzahl kontaktierter Städte zu finden — gehört sogar zu einer Klasse von Problemen, die sich höchstwahrscheinlich nicht perfekt und effizient lösen lassen. Greedy Equal ist deshalb ein kluger Kompromiss: Es ist effizient, verständlich und liefert in der Praxis sehr gute Ergebnisse — mit der Garantie, höchstens 2 Städte mehr als theoretisch nötig zu kontaktieren.</p>
     </div>
   </div>
-
-  <p>In der Praxis mit echten deutschen Städtedaten — über 100.000 Kommunen und 84 Millionen Einwohnende — funktioniert Greedy Equal schnell und zuverlässig auf einem normalen Computer.</p>
 
 </section>
 
