@@ -138,8 +138,12 @@
       margin: 1.8rem 0;
       display: block;
     }
+    .figure.medium {
+      max-width: 450px;
+      margin: 1.8rem auto;
+    }
     .figure.small {
-      max-width: 300px;
+      max-width: 350px;
       margin: 1.8rem auto;
     }
 
@@ -329,12 +333,12 @@
   <p>Wir möchten zu unserem Bürger*innenrat insgesamt 10 Einladungsbriefe verschicken. Dieses Problem kann man gut bildlich darstellen: Wir malen ein Rechteck der Höhe 10 und Breite 6 mit 10 × 6 = 60 Feldern — also genau ein Feld pro Bewohner*in unseres Landes. Jede Person wird in einem Feld platziert, sodass wir 30 gelbe Felder, 12 rote und blaue Felder und 6 grüne Felder erhalten.
   Das könnte zum Beispiel so aussehen: </p>
 
-  <img src="rectangle.png" alt="Eingefärbtes Rechteck mit Feldern pro Person" class="figure" />
+  <img src="rectangle.png" alt="Eingefärbtes Rechteck mit Feldern pro Person" class="figure.medium" />
 
   <p>Dann würfeln wir zufällig eine der 6 Spalten aus. Jede Spalte besteht aus 10 Feldern — genau die richtige Anzahl Einladungen, die wir verschicken wollen. Wird zum Beispiel eine 1 gewürfelt, verschicken wir 6 Briefe an die blaue und 4 Briefe an die rote Stadt. 
     Bei einer 2 verschicken wir 6 Briefe an die blaue und 4 Briefe an die gelbe Stadt und so weiter.</p>
 
-  <img src="dice.png" alt="Würfelwurf und Spaltenauswahl" class="figure" />
+  <img src="dice.png" alt="Würfelwurf und Spaltenauswahl" class="figure.medium" />
 
   <div class="highlight-box">
     <strong>Fairness:</strong> Wichtig für die Fairness ist nur, dass jede Stadt genau so viele Felder bekommt wie sie Einwohnende hat. 
@@ -487,7 +491,7 @@
     Das Bild wird in Schichten von unten nach oben und von links nach rechts aufgefüllt, wobei die Städte nach Größe sortiert verarbeitet werden.
     Bevor wir die Methode im Detail anschauen, hier schonmal ein Beispiel: </p>
 
-  <video width="100%" controls style="border-radius: 10px; margin: 1.8rem 0;">
+  <video width="70%" controls style="border-radius: 10px; margin: 1.8rem 0;">
     <source src="GreedyEqualScene_big.mp4" type="video/mp4">
   </video>
 
