@@ -545,7 +545,7 @@
     </div>
     <div class="step">
       <span class="step-label">Schritt 3</span>
-      <span>Die <strong>blaue Stadt</strong> kommt als nächstes. Sie darf ihre Maximalhöhe von 8 nicht voll ausnutzen, weil die erste Schicht nur Höhe 4 hat. Beim Platzieren erreichen wir den rechten Rand des Rechtecks.</span>
+      <span>Die <strong>blaue Stadt</strong> kommt als nächstes. Sie darf ihre Maximalhöhe von 7 nicht voll ausnutzen, weil die erste Schicht nur Höhe 4 hat. Beim Platzieren erreichen wir den rechten Rand des Rechtecks.</span>
     </div>
     <div class="step">
       <span class="step-label">Schritt 4</span>
@@ -592,7 +592,9 @@
       <span class="foldout-icon">+</span>
     </div>
     <div class="foldout-body">
-      <p>Schauen wir uns dasselbe Beispiel an, aber mit maximal zwei Städten übereinander. Greedy Equal arbeitet also nur mit zwei Schichten. Die erste Schicht kann von der grünen Stadt wieder nicht ausgefüllt werden, sodass der übrige Platz an die zweite Schicht gegeben wird. Die zweite Schicht beginnt dann mit der blauen Stadt — allerdings hat diese eine Maximalhöhe von 8, die Schicht hat aber Höhe 10. Es bleibt also oben links eine Lücke im Bild. Das führt dazu, dass am Ende nicht mehr genügend Felder für die gelbe Stadt übrig sind. Daran erkennt man, dass Greedy Equal gescheitert ist — man muss dann eine Schicht mehr erlauben.</p>
+      <p>Schauen wir uns dasselbe Beispiel an, aber mit maximal zwei Städten übereinander. Greedy Equal arbeitet also nur mit zwei Schichten. Die erste Schicht kann von der grünen Stadt wieder nicht ausgefüllt werden, sodass der übrige Platz an die zweite Schicht gegeben wird. Die zweite Schicht beginnt dann mit der blauen Stadt — allerdings hat diese eine Maximalhöhe von 7, die Schicht hat aber Höhe 10. Es bleibt also oben links eine Lücke im Bild. 
+        Das führt dazu, dass am Ende nicht mehr genügend Felder für die gelbe Stadt übrig sind. 
+        Daran erkennt man, dass Greedy Equal gescheitert ist. Erst wenn wir eine Schicht mehr erlauben, funktioniert die Methode.</p>
       <img src="greedy_ex3.png" alt="Greedy Equal scheitert bei t = 2" class="figure small" style="margin-top: 1rem;" />
     </div>
   </div>
