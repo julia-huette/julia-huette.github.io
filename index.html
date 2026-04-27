@@ -457,6 +457,16 @@
     </div>
   </div>
 
+  <div class="foldout">
+    <div class="foldout-header" onclick="toggleFoldout(this)">
+      <span class="foldout-question">💡 Warum ist dieses Problem eigentlich schwierig?</span>
+      <span class="foldout-icon">+</span>
+    </div>
+    <div class="foldout-body">
+      <p>Wenn man alle vier Kriterien gleichzeitig erfüllen möchte, tauchen Zielkonflikte auf und man muss einen möglichst guten Kompromiss finden. Das zugrundeliegende Problem — die minimale Anzahl kontaktierter Städte zu finden — gehört sogar zu einer Klasse von Problemen, die sich höchstwahrscheinlich nicht perfekt und effizient lösen lassen. Greedy Equal ist deshalb ein kluger Kompromiss: Es ist effizient, verständlich und liefert in der Praxis sehr gute Ergebnisse — mit der Garantie, höchstens 2 Städte mehr als theoretisch nötig zu kontaktieren.</p>
+    </div>
+  </div>
+
   <h3>Von Spalten zu kontinuierlichen Bildern</h3>
 
   <p>In der Praxis sind die Länder natürlich viel größer und es gibt viel mehr Städte. Dann stellen wir die Bilder der Anschaulichkeit halber nicht mehr mit einzelnen Feldern und Spalten dar. 
@@ -581,16 +591,6 @@
     <div class="foldout-body">
       <p>Schauen wir uns dasselbe Beispiel an, aber mit maximal zwei Städten übereinander. Greedy Equal arbeitet also nur mit zwei Schichten. Die erste Schicht kann von der grünen Stadt wieder nicht ausgefüllt werden, sodass der übrige Platz an die zweite Schicht gegeben wird. Die zweite Schicht beginnt dann mit der blauen Stadt — allerdings hat diese eine Maximalhöhe von 8, die Schicht hat aber Höhe 10. Es bleibt also oben links eine Lücke im Bild. Das führt dazu, dass am Ende nicht mehr genügend Felder für die gelbe Stadt übrig sind. Daran erkennt man, dass Greedy Equal gescheitert ist — man muss dann eine Schicht mehr erlauben.</p>
       <img src="greedy_ex3.png" alt="Greedy Equal scheitert bei t = 2" class="figure small" style="margin-top: 1rem;" />
-    </div>
-  </div>
-
-  <div class="foldout">
-    <div class="foldout-header" onclick="toggleFoldout(this)">
-      <span class="foldout-question">💡 Warum ist dieses Problem eigentlich schwierig?</span>
-      <span class="foldout-icon">+</span>
-    </div>
-    <div class="foldout-body">
-      <p>Wenn man alle vier Kriterien gleichzeitig erfüllen möchte, tauchen Zielkonflikte auf und man muss einen möglichst guten Kompromiss finden. Das zugrundeliegende Problem — die minimale Anzahl kontaktierter Städte zu finden — gehört sogar zu einer Klasse von Problemen, die sich höchstwahrscheinlich nicht perfekt und effizient lösen lassen. Greedy Equal ist deshalb ein kluger Kompromiss: Es ist effizient, verständlich und liefert in der Praxis sehr gute Ergebnisse — mit der Garantie, höchstens 2 Städte mehr als theoretisch nötig zu kontaktieren.</p>
     </div>
   </div>
 
