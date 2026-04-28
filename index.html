@@ -299,31 +299,6 @@
 
   <p>In Deutschland gibt es eine solche zentrale Liste aber nicht — stattdessen verwaltet jede Stadt die Daten ihrer Einwohnenden selbst (oder um genau zu sein: jede Kommune). Wir können also nicht direkt zufällig Menschen auswählen. Stattdessen müssen wir zufällig <strong>Städte</strong> auswählen und jeder Stadt eine gewisse Anzahl Einladungsbriefe zuordnen, die innerhalb der Stadt zufällig verteilt werden.</p>
 
-  <div class="foldout">
-    <div class="foldout-header" onclick="toggleFoldout(this)">
-      <span class="foldout-question">💡 Warum gibt es kein zentrales Melderegister in Deutschland?</span>
-      <span class="foldout-icon">+</span>
-    </div>
-    <div class="foldout-body">
-      <p>Gründe dafür sind unter anderem Datenschutz und Schutz vor Missbrauch der Daten durch den Staat. Jede Kommune verwaltet die Daten ihrer Einwohnenden eigenständig. Ein Gesetzesentwurf für ein zentrales Bundesmelderegister 2008 scheiterte unter anderem an datenschutzrechtlichen Bedenken.</p>
-    </div>
-  </div>
-
-  <div class="foldout">
-    <div class="foldout-header" onclick="toggleFoldout(this)">
-      <span class="foldout-question">💡 Könnte man nicht einfach alle Städte auswählen und ihnen ihren Anteil an Briefen geben?</span>
-      <span class="foldout-icon">+</span>
-    </div>
-    <div class="foldout-body">
-      <p>Dafür gibt es viel zu viele — zum 1. Januar 2026 gab es 10.747 Gemeinden in Deutschland.
-        Es wäre ein riesiger Aufwand, mit allen Kontakt aufzunehmen, nur um dann sehr wenige Briefe pro Stadt zu versenden.
-        Das lohnt sich nicht.
-        Wenn wir 20.000 Einladungen verschicken, würde z.B. alle Gemeinden mit bis zu 4.100 Einwohnenden nicht mal ein voller Brief zustehen.
-        <!-- Deutschlands kleinster Gemeinde Dierfeld mit 9 Einwohnenden würden z.B. nur 0,002 Briefe zustehen, wenn insgesamt 20.000 Einladungsbriefe verschickt werden. -->
-        </p>
-    </div>
-  </div>
-
   <div style="border: 1.5px solid var(--box-border); border-radius: 10px; overflow: hidden; margin: 1.8rem 0;">
   <div class="foldout" style="margin: 0; border: none; border-bottom: 1.5px solid var(--box-border);">
     <div class="foldout-header" onclick="toggleFoldout(this)">
@@ -627,6 +602,35 @@
 </video>
     </div>
   </div>
+
+<div style="border: 1.5px solid var(--box-border); border-radius: 10px; overflow: hidden; margin: 1.8rem 0;">
+  <div class="foldout" style="margin: 0; border: none; border-bottom: 1.5px solid var(--box-border);">
+    <div class="foldout-header" onclick="toggleFoldout(this)">
+      <span class="foldout-question">💡 Warum wird die Maximalhöhe immer eingehalten?</span>
+      <span class="foldout-icon">+</span>
+    </div>
+    <div class="foldout-body">
+      <p>Weil beim Platzieren einer Stadt immer überprüft wird, ob die Höhe der Schicht zu hoch für die Stadt ist und sie sonst Platz nach oben lässt.
+        Bei sehr großen Städten kann es theoretisch vorkommen, dass sich eine Stadt "selbst überholt", also über sich selbst geschichtet wird und die Maximalhöhe deshalb vielleicht verletzt wird.
+        In der Praxis passiert das einerseits kaum und würde andererseits auch kein Problem darstellen, da die erlaubten Höhen bei großen Städten deutlich größer als die Höhe des Rechtecks sind.
+      </p>
+    </div>
+  </div>
+  <div class="foldout" style="margin: 0; border: none;">
+    <div class="foldout-header" onclick="toggleFoldout(this)">
+      <span class="foldout-question">💡 Woran erkennt man, wenn Greedy Equal keine Lösung findet?</span>
+      <span class="foldout-icon">+</span>
+    </div>
+    <div class="foldout-body">
+      <p>Schauen wir uns dasselbe Beispiel an, aber mit maximal zwei Städten übereinander. Greedy Equal arbeitet also nur mit zwei Schichten. Die erste Schicht kann von der grünen Stadt wieder nicht ausgefüllt werden, sodass der übrige Platz an die zweite Schicht gegeben wird. Die zweite Schicht beginnt dann mit der blauen Stadt — allerdings hat diese eine Maximalhöhe von 7, die Schicht hat aber Höhe 10. Es bleibt also oben links eine Lücke im Bild.
+        Das führt dazu, dass am Ende nicht mehr genügend Felder für die gelbe Stadt übrig sind.
+        Daran erkennt man, dass Greedy Equal gescheitert ist. Erst wenn wir eine Schicht mehr erlauben, funktioniert die Methode.</p>
+      <video width="50%" controls style="border-radius: 10px; margin: 1.8rem auto; display: block;">
+        <source src="GreedyEqualScene_fail.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</div>
 
 </section>
 
