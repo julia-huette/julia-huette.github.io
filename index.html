@@ -147,36 +147,35 @@
       margin: 1.8rem auto;
     }
 
-    /* FOLDOUT */
-    .foldout {
-      background: var(--box-bg);
-      border: 1.5px solid var(--box-border);
-      border-radius: 10px;
-      margin: 1.8rem 0;
-      overflow: hidden;
-    }
-    .foldout-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1rem 1.3rem;
-      cursor: pointer;
-      user-select: none;
-      gap: 1rem;
-    }
-    .foldout-header:hover { background: rgba(0,0,0,0.04); }
-    .foldout-question { font-weight: 600; color: var(--blue-deep); font-size: 0.97rem; }
-    .foldout-icon { font-size: 1.3rem; color: var(--blue-dark); transition: transform 0.3s; flex-shrink: 0; }
-    .foldout.open .foldout-icon { transform: rotate(45deg); }
-    .foldout-body {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease, padding 0.3s;
-      padding: 0 1.3rem;
-    }
-    .foldout.open .foldout-body { max-height: 900px; padding: 0 1.3rem 1.2rem; }
-    .foldout-body p { font-size: 0.95rem; color: var(--text-light); }
-
+   /* FOLDOUT */
+.foldout {
+  background: var(--box-bg);
+  border: 1.5px solid var(--box-border);
+  border-radius: 10px;
+  margin: 1.8rem 0;
+  overflow: hidden;
+}
+.foldout-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.3rem;
+  cursor: pointer;
+  user-select: none;
+  gap: 1rem;
+}
+.foldout-header:hover { background: rgba(0,0,0,0.04); }
+.foldout-question { font-weight: 600; color: var(--blue-deep); font-size: 0.97rem; }
+.foldout-icon { font-size: 1.3rem; color: var(--blue-dark); transition: transform 0.3s; flex-shrink: 0; }
+.foldout.open .foldout-icon { transform: rotate(45deg); }
+.foldout-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+.foldout.open .foldout-body { max-height: 900px; }
+.foldout-body-inner { padding: 0 1.3rem 1.2rem; }
+.foldout-body p { font-size: 0.95rem; color: var(--text-light); }
     /* HIGHLIGHT BOX */
     .highlight-box {
       background: var(--box-bg);
@@ -262,7 +261,7 @@
 
 <!-- NAV -->
 <nav>
-  <span class="nav-logo">Gemeindelotterie</span>
+  <span class="nav-logo">Gemeindelotterie für Bürger*innenräte</span>
   <ul class="nav-links">
     <li><a href="#grundproblem">Grundproblem</a></li>
     <li><a href="#darstellung">Bildliche Darstellung</a></li>
@@ -381,16 +380,18 @@
     Erstens werden alle Einwohnenden der grünen Stadt eingeladen, falls eine 1 gewürfelt wird.
     Tatsächlich hat aber jede Stadt eine maximale Anzahl an Briefen, die sie verschicken darf, die kleiner als die Anzahl Einwohnender ist. <p>
 
-      <div class="foldout">
+    <div class="foldout">
     <div class="foldout-header" onclick="toggleFoldout(this)">
       <span class="foldout-question">💡 Warum darf eine Stadt nicht alle ihre Adressen herausgeben?</span>
       <span class="foldout-icon">+</span>
     </div>
     <div class="foldout-body">
+      <div class="foldout-body-inner">
       <p>Es gibt zwei Gründe: Erstens soll Überrepräsentation einer Stadt vermieden werden — wenn alle Einwohnenden einer kleinen Stadt eingeladen werden, ist diese Stadt unverhältnismäßig stark vertreten. 
         Zweitens ist Datenschutz ein wichtiger Grund: Die Herausgabe aller Adressen einer Stadt auf einmal birgt ein höheres Risiko für Missbrauch. 
         Deshalb gibt es für jede Stadt eine maximale Anzahl Briefe, die sie verschicken darf.</p>
-    </div>
+      </div>
+      </div>
   </div>
     
     <p>Nun zum zweiten Nachteil von Bild 3: Es kann vorkommen, dass eine deutlich kleinere Stadt viel mehr Briefe erhält als eine größere.
@@ -404,12 +405,14 @@
       <span class="foldout-icon">+</span>
     </div>
     <div class="foldout-body">
+      <div class="foldout-body-inner">
       <p> Der Auswahlprozess ist trotzdem insgesamt fair, da jede Stadt genau so viele Felder wie Einwohnende hat. 
         Wenn eine 2 oder 4 gewürfelt wird, erhält die gelbe Stadt zwar nur einen Brief, aber bei einer 3, 5 oder 6 erhält sie viel mehr.
         Das gleicht sich insgesamt aus. 
         Dennoch könnten es Menschen im Nachhinein als unfair empfinden, wenn die Briefe so unbalanciert verteilt werden.
         Es geht hier also eher um das Gerechtigkeitsempfinden.
         </p>
+      </div>
     </div>
   </div>
 
@@ -508,6 +511,7 @@
       <span class="foldout-icon">+</span>
     </div>
     <div class="foldout-body">
+      <div class="foldout-body-inner">
       <p>Man kann nicht einfach jede beliebige Grenze verlangen. 
         Würden wir zum Beispiel vorgeben, dass nie mehr als eine Stadt angeschrieben werden darf, aber eine Stadt nicht alle Briefe verschicken darf, wäre das Problem unlösbar. 
         Eine gewisse Anzahl Städte übereinander muss erlaubt sein, damit es überhaupt möglich ist, alle Kriterien zu erfüllen.</p>
@@ -515,7 +519,8 @@
         Spätestens, wenn wir alle Städte übereinander erlauben, gibt es schließlich immer eine Lösung. 
         Man kann beweisen, dass Greedy Equal schon dann eine Lösung findet, wenn man ihm 2 Städte mehr als die theoretisch notwendige Mindestanzahl erlaubt.
         Das bedeutet, es müssen höchstens 2 Städte mehr als nötig kontaktiert werden.</p>
-    </div>
+      </div>
+      </div>
   </div>
 
   <h3>Ein Beispiel Schritt für Schritt</h3>
@@ -582,10 +587,12 @@
       <span class="foldout-icon">+</span>
     </div>
     <div class="foldout-body">
+      <div class="foldout-body-inner">
       <p>Weil beim Platzieren einer Stadt immer überprüft wird, ob die Höhe der Schicht zu hoch für die Stadt ist und sie sonst Platz nach oben lässt.
         Bei sehr großen Städten kann es theoretisch vorkommen, dass sich eine Stadt "selbst überholt", also über sich selbst geschichtet wird und die Maximalhöhe deshalb vielleicht verletzt wird.
         In der Praxis passiert das einerseits kaum und würde andererseits auch kein Problem darstellen, da die erlaubten Höhen bei großen Städten deutlich größer als die Höhe des Rechtecks sind.
       </p>
+      </div>
     </div>
   </div>
   <div class="foldout" style="margin: 0; border: none;">
@@ -594,12 +601,14 @@
       <span class="foldout-icon">+</span>
     </div>
     <div class="foldout-body">
+      <div class="foldout-body-inner">
       <p>Schauen wir uns dasselbe Beispiel an, aber mit maximal zwei Städten übereinander. Greedy Equal arbeitet also nur mit zwei Schichten. Die erste Schicht kann von der grünen Stadt wieder nicht ausgefüllt werden, sodass der übrige Platz an die zweite Schicht gegeben wird. Die zweite Schicht beginnt dann mit der blauen Stadt — allerdings hat diese eine Maximalhöhe von 7, die Schicht hat aber Höhe 10. Es bleibt also oben links eine Lücke im Bild.
         Das führt dazu, dass am Ende nicht mehr genügend Felder für die gelbe Stadt übrig sind.
         Daran erkennt man, dass Greedy Equal gescheitert ist. Erst wenn wir eine Schicht mehr erlauben, funktioniert die Methode.</p>
       <video width="50%" controls style="border-radius: 10px; margin: 1.8rem auto; display: block;">
         <source src="GreedyEqualScene_fail.mp4" type="video/mp4">
       </video>
+      </div>
     </div>
   </div>
 </div>
