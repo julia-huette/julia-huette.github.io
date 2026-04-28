@@ -575,34 +575,6 @@
     Greedy Equal funktioniert außerdem schnell und zuverlässig auf einem normalen Computer.
   </div>
 
-  <div class="foldout">
-    <div class="foldout-header" onclick="toggleFoldout(this)">
-      <span class="foldout-question">💡 Warum wird die Maximalhöhe immer eingehalten?</span>
-      <span class="foldout-icon">+</span>
-    </div>
-    <div class="foldout-body">
-      <p> Weil beim Platzieren einer Stadt immer überprüft wird, ob die Höhe der Schicht zu hoch für die Stadt ist und sie sonst Platz nach oben lässt.
-          Bei sehr großen Städten kann es theoretisch vorkommen, dass sich eine Stadt "selbst überholt", also über sich selbst geschichtet wird und die Maximalhöhe deshalb vielleicht verletzt wird.
-          In der Praxis passiert das einerseits kaum und würde andererseits auch kein Problem darstellen, da die erlaubten Höhen bei großen Städten deutlich größer als die Höhe des Rechtecks sind.
-        </p>
-    </div>
-  </div>
-
-  <div class="foldout">
-    <div class="foldout-header" onclick="toggleFoldout(this)">
-      <span class="foldout-question">💡 Woran erkennt man, wenn Greedy Equal keine Lösung findet?</span>
-      <span class="foldout-icon">+</span>
-    </div>
-    <div class="foldout-body">
-      <p>Schauen wir uns dasselbe Beispiel an, aber mit maximal zwei Städten übereinander. Greedy Equal arbeitet also nur mit zwei Schichten. Die erste Schicht kann von der grünen Stadt wieder nicht ausgefüllt werden, sodass der übrige Platz an die zweite Schicht gegeben wird. Die zweite Schicht beginnt dann mit der blauen Stadt — allerdings hat diese eine Maximalhöhe von 7, die Schicht hat aber Höhe 10. Es bleibt also oben links eine Lücke im Bild. 
-        Das führt dazu, dass am Ende nicht mehr genügend Felder für die gelbe Stadt übrig sind. 
-        Daran erkennt man, dass Greedy Equal gescheitert ist. Erst wenn wir eine Schicht mehr erlauben, funktioniert die Methode.</p>
-       <video width="50%" controls style="border-radius: 10px; margin: 1.8rem auto; display: block;">
-       <source src="GreedyEqualScene_fail.mp4" type="video/mp4">
-</video>
-    </div>
-  </div>
-
 <div style="border: 1.5px solid var(--box-border); border-radius: 10px; overflow: hidden; margin: 1.8rem 0;">
   <div class="foldout" style="margin: 0; border: none; border-bottom: 1.5px solid var(--box-border);">
     <div class="foldout-header" onclick="toggleFoldout(this)">
