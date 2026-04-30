@@ -251,21 +251,46 @@
     footer a { color: var(--blue-light); }
 
     @media (max-width: 600px) {
-      nav { padding: 0 1.2rem; }
-      .nav-links { gap: 1.2rem; }
-      section { padding: 2.5rem 1.2rem; }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background: var(--blue-deep);
+        padding: 1rem 1.5rem;
+        gap: 1rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      }
+      .nav-links.open {
+        display: flex;
+      }
+      .hamburger {
+        display: block;
+        cursor: pointer;
+        font-size: 1.5rem;
+        color: var(--white);
+        background: none;
+        border: none;
+      }
+    }
+    @media (min-width: 601px) {
+      .hamburger { display: none; }
+    }
     }
   </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav>
-  <span class="nav-logo">Gemeindelotterie</span>
-  <ul class="nav-links">
-    <li><a href="#grundproblem">Grundproblem</a></li>
-    <li><a href="#darstellung">Bildliche Darstellung</a></li>
-    <li><a href="#lösung">Lösung</a></li>
+<nav style="position: relative;">
+  <span class="nav-logo">City Sampling</span>
+  <button class="hamburger" onclick="toggleMenu()">☰</button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#grundproblem" onclick="toggleMenu()">Grundproblem</a></li>
+    <li><a href="#darstellung" onclick="toggleMenu()">Darstellung</a></li>
+    <li><a href="#greedy">Greedy Equal</a></li>
   </ul>
 </nav>
 
@@ -762,6 +787,10 @@
   function toggleFoldout(header) {
     const box = header.closest('.foldout');
     box.classList.toggle('open');
+
+    function toggleMenu() {
+    const nav = document.getElementById('navLinks');
+    nav.classList.toggle('open');
   }
 </script>
 
