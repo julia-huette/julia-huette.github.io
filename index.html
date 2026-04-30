@@ -490,22 +490,28 @@
 
   <p>Bild 4 aus unserem Beispiel könnte dann zum Beispiel so aussehen:</p>
 
-  <div style="display: flex; gap: 2rem; align-items: center; margin: 1.8rem 0; flex-wrap: wrap;">
+<div style="display: flex; gap: 2rem; align-items: center; margin: 1.8rem 0; flex-wrap: wrap;">
   
   <!-- Linke Seite: Animation -->
   <div style="flex: 1; min-width: 250px; position: relative; cursor: pointer; display: inline-block;" id="animContainer">
     <img src="general_plain.png" alt="Kontinuierliches Rechteck-Bild" 
-         style="height: 300px; width: auto; display: block; margin: 0 auto;"
+         style="height: 360px; width: auto; display: block; margin: 0 auto;"
          id="animImg" />
     <canvas id="lineCanvas" 
             style="position: absolute; top: 0; left: 0; pointer-events: none;">
     </canvas>
   </div>
 
+  <!-- Mitte: Pfeil -->
+  <div style="display: flex; align-items: center; justify-content: center;">
+    <img id="arrowImg" src="arrow.png" alt="Pfeil"
+         style="height: 60px; width: auto; display: none;" />
+  </div>
+
   <!-- Rechte Seite: Standbild -->
   <div style="flex: 1; min-width: 250px;" id="rightSide">
     <img id="resultImg"
-         style="height: 300px; width: auto; display: none; margin: 0 auto;" />
+         style="height: 360px; width: auto; display: none; margin: 0 auto;" />
   </div>
 
 </div>
@@ -515,15 +521,16 @@
   const lineCanvas = document.getElementById('lineCanvas');
   const animContainer = document.getElementById('animContainer');
   const resultImg = document.getElementById('resultImg');
+  const arrowImg = document.getElementById('arrowImg');
 
   let paused = false;
   let currentProgress = 0;
   let animFrameId;
   let startTimestamp = null;
+  let resumeProgress = 0;
   const duration = 3000;
 
   function resizeCanvas() {
-    // Canvas exakt auf das Bild ausrichten, nicht den Container
     const imgRect = animImg.getBoundingClientRect();
     const containerRect = animContainer.getBoundingClientRect();
     lineCanvas.width = imgRect.width;
@@ -550,7 +557,11 @@
   }
 
   function getProgress(timestamp) {
-    if (!startTimestamp) startTimestamp = timestamp;
+    if (!startTimestamp) {
+      // Startzeitpunkt so berechnen dass wir bei resumeProgress weitermachen
+      const offset = resumeProgress * duration;
+      startTimestamp = timestamp - offset;
+    }
     const elapsed = (timestamp - startTimestamp) % (duration * 2);
     return elapsed < duration
       ? elapsed / duration
@@ -568,15 +579,16 @@
     if (!paused) {
       paused = true;
       cancelAnimationFrame(animFrameId);
+      resumeProgress = currentProgress;
       const isRight = currentProgress > 0.5;
       resultImg.src = isRight ? 'general_right.png' : 'general_left.png';
       resultImg.style.display = 'block';
+      arrowImg.style.display = 'block';
     } else {
       paused = false;
       resultImg.style.display = 'none';
-      // startTimestamp so setzen, dass die Animation bei currentProgress weitermacht
+      arrowImg.style.display = 'none';
       startTimestamp = null;
-      resumeProgress = currentProgress;
       animFrameId = requestAnimationFrame(animate);
     }
   });
@@ -585,9 +597,7 @@
     resizeCanvas();
     animFrameId = requestAnimationFrame(animate);
   });
-  window.addEventListener('resize', () => {
-    resizeCanvas();
-  });
+  window.addEventListener('resize', resizeCanvas);
 
   if (animImg.complete) {
     resizeCanvas();
@@ -596,9 +606,9 @@
 </script>
 
 
-  <p>In der Praxis könnten Bilder dann zum Beispiel so aussehen:</p>
+  <!<p>In der Praxis könnten Bilder dann zum Beispiel so aussehen:</p>
 
-  <img src="greedy_practical.png" alt="Realistisches Beispiel mit vielen Städten" class="figure small" />
+  <img src="greedy_practical.png" alt="Realistisches Beispiel mit vielen Städten" class="figure small" /> >
 
 </section>
 
