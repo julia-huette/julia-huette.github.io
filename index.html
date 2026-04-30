@@ -491,8 +491,6 @@
   <p>Bild 4 aus unserem Beispiel könnte dann zum Beispiel so aussehen:</p>
 
 
-
-
   <div style="display: flex; gap: 2rem; align-items: center; margin: 1.8rem 0; flex-wrap: wrap;">
   
   <!-- Linke Seite: Animation -->
@@ -505,18 +503,10 @@
     </canvas>
   </div>
 
-  <!-- Rechte Seite: Standbild mit gewählter Position -->
-  <div style="flex: 1; min-width: 250px; position: relative;">
+  <!-- Rechte Seite: Standbild -->
+  <div style="flex: 1; min-width: 250px;">
     <img src="general.png" alt="Gewählte Position" 
-         style="width: 100%; border-radius: 10px; display: block;"
-         id="staticImg" />
-    <canvas id="staticCanvas" 
-            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 10px;">
-    </canvas>
-    <div id="staticLabel" 
-         style="text-align: center; font-size: 0.85rem; color: var(--text-light); margin-top: 0.5rem;">
-      Warte auf Auswahl…
-    </div>
+         style="width: 100%; border-radius: 10px; display: block;" />
   </div>
 
 </div>
@@ -524,19 +514,10 @@
 <script>
   const animImg = document.getElementById('animImg');
   const lineCanvas = document.getElementById('lineCanvas');
-  const staticCanvas = document.getElementById('staticCanvas');
-  const staticLabel = document.getElementById('staticLabel');
 
-  let animFrame;
-  let chosenX = null;
-
-  function resizeCanvases() {
-    const rect = animImg.getBoundingClientRect();
-    lineCanvas.width = animImg.naturalWidth || rect.width;
-    lineCanvas.height = animImg.naturalHeight || rect.height;
-    staticCanvas.width = lineCanvas.width;
-    staticCanvas.height = lineCanvas.height;
-    if (chosenX !== null) drawStatic(chosenX);
+  function resizeCanvas() {
+    lineCanvas.width = animImg.naturalWidth || animImg.offsetWidth;
+    lineCanvas.height = animImg.naturalHeight || animImg.offsetHeight;
   }
 
   function drawLine(progress) {
@@ -544,6 +525,7 @@
     const w = lineCanvas.width;
     const h = lineCanvas.height;
     ctx.clearRect(0, 0, w, h);
+    // progress geht 0→1→0 (hin und zurück)
     const x = Math.round(progress * w);
     ctx.beginPath();
     ctx.moveTo(x, 0);
@@ -554,51 +536,30 @@
     ctx.stroke();
   }
 
-  function drawStatic(x) {
-    const ctx = staticCanvas.getContext('2d');
-    const w = staticCanvas.width;
-    const h = staticCanvas.height;
-    ctx.clearRect(0, 0, w, h);
-    ctx.beginPath();
-    ctx.moveTo(x, 0);
-    ctx.lineTo(x, h);
-    ctx.strokeStyle = '#7030A0';
-    ctx.lineWidth = Math.max(2, w / 120);
-    ctx.setLineDash([8, 6]);
-    ctx.stroke();
-    const percent = Math.round((x / w) * 100);
-    staticLabel.textContent = `Gewählte Position: ${percent}%`;
-  }
-
   function animate() {
-    let start = null;
-    const duration = 3000;
+    const duration = 3000; // eine Richtung in ms
 
     function step(timestamp) {
-      if (!start) start = timestamp;
-      const elapsed = timestamp - start;
-      const progress = (elapsed % duration) / duration;
+      const elapsed = timestamp % (duration * 2);
+      // 0→duration: links nach rechts, duration→duration*2: rechts nach links
+      const progress = elapsed < duration
+        ? elapsed / duration
+        : 1 - (elapsed - duration) / duration;
       drawLine(progress);
-
-      if (elapsed % duration < 50) {
-        chosenX = Math.random() * lineCanvas.width;
-        drawStatic(chosenX);
-      }
-
-      animFrame = requestAnimationFrame(step);
+      requestAnimationFrame(step);
     }
 
-    animFrame = requestAnimationFrame(step);
+    requestAnimationFrame(step);
   }
 
   animImg.addEventListener('load', () => {
-    resizeCanvases();
+    resizeCanvas();
     animate();
   });
-  window.addEventListener('resize', resizeCanvases);
+  window.addEventListener('resize', resizeCanvas);
 
   if (animImg.complete) {
-    resizeCanvases();
+    resizeCanvas();
     animate();
   }
 </script>
