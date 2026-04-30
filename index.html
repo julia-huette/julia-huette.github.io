@@ -490,12 +490,12 @@
 
   <p>Bild 4 aus unserem Beispiel könnte dann zum Beispiel so aussehen:</p>
 
-<div style="display: flex; gap: 2rem; align-items: center; margin: 1.8rem 0; flex-wrap: wrap;">
+<div style="display: flex; gap: 1rem; align-items: center; margin: 1.8rem 0; flex-wrap: wrap;">
   
   <!-- Linke Seite: Animation -->
-  <div style="flex: 1; min-width: 250px; position: relative; cursor: pointer; display: inline-block;" id="animContainer">
+  <div style="position: relative; cursor: pointer; flex-shrink: 0;" id="animContainer">
     <img src="general_plain.png" alt="Kontinuierliches Rechteck-Bild" 
-         style="height: 360px; width: auto; display: block; margin: 0 auto;"
+         style="height: 360px; width: auto; display: block;"
          id="animImg" />
     <canvas id="lineCanvas" 
             style="position: absolute; top: 0; left: 0; pointer-events: none;">
@@ -503,15 +503,15 @@
   </div>
 
   <!-- Mitte: Pfeil -->
-  <div style="display: flex; align-items: center; justify-content: center;">
+  <div style="display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
     <img id="arrowImg" src="arrow.png" alt="Pfeil"
          style="height: 60px; width: auto; display: none;" />
   </div>
 
   <!-- Rechte Seite: Standbild -->
-  <div style="flex: 1; min-width: 250px;" id="rightSide">
+  <div style="flex: 1; display: flex; align-items: center; justify-content: flex-start;">
     <img id="resultImg"
-         style="height: 360px; width: auto; display: none; margin: 0 auto;" />
+         style="height: 360px; width: auto; display: none;" />
   </div>
 
 </div>
@@ -525,9 +525,11 @@
 
   let paused = false;
   let currentProgress = 0;
+  let goingRight = true; // merkt sich die Richtung
   let animFrameId;
   let startTimestamp = null;
   let resumeProgress = 0;
+  let resumeGoingRight = true;
   const duration = 3000;
 
   function resizeCanvas() {
@@ -558,14 +560,23 @@
 
   function getProgress(timestamp) {
     if (!startTimestamp) {
-      // Startzeitpunkt so berechnen dass wir bei resumeProgress weitermachen
-      const offset = resumeProgress * duration;
+      // Richtung berücksichtigen beim Weitermachen
+      let offset;
+      if (resumeGoingRight) {
+        offset = resumeProgress * duration;
+      } else {
+        offset = (2 - resumeProgress) * duration;
+      }
       startTimestamp = timestamp - offset;
     }
     const elapsed = (timestamp - startTimestamp) % (duration * 2);
-    return elapsed < duration
-      ? elapsed / duration
-      : 1 - (elapsed - duration) / duration;
+    if (elapsed < duration) {
+      goingRight = true;
+      return elapsed / duration;
+    } else {
+      goingRight = false;
+      return 1 - (elapsed - duration) / duration;
+    }
   }
 
   function animate(timestamp) {
@@ -580,6 +591,7 @@
       paused = true;
       cancelAnimationFrame(animFrameId);
       resumeProgress = currentProgress;
+      resumeGoingRight = goingRight;
       const isRight = currentProgress > 0.5;
       resultImg.src = isRight ? 'general_right.png' : 'general_left.png';
       resultImg.style.display = 'block';
@@ -606,9 +618,9 @@
 </script>
 
 
-  <!<p>In der Praxis könnten Bilder dann zum Beispiel so aussehen:</p>
+  <!-- <p>In der Praxis könnten Bilder dann zum Beispiel so aussehen:</p>
 
-  <img src="greedy_practical.png" alt="Realistisches Beispiel mit vielen Städten" class="figure small" /> >
+  <img src="greedy_practical.png" alt="Realistisches Beispiel mit vielen Städten" class="figure small" /> -->
 
 </section>
 
