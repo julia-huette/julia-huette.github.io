@@ -490,6 +490,109 @@
 
   <p>Bild 4 aus unserem Beispiel könnte dann zum Beispiel so aussehen:</p>
 
+  <div style="display: flex; gap: 2rem; align-items: center; margin: 1.8rem 0; flex-wrap: wrap;">
+  
+  <!-- Linke Seite: Animation -->
+  <div style="flex: 1; min-width: 250px; position: relative; cursor: pointer; display: inline-block;" id="animContainer">
+    <img src="general_plain.png" alt="Kontinuierliches Rechteck-Bild" 
+         style="height: 300px; width: auto; display: block; margin: 0 auto;"
+         id="animImg" />
+    <canvas id="lineCanvas" 
+            style="position: absolute; top: 0; left: 0; pointer-events: none;">
+    </canvas>
+  </div>
+
+  <!-- Rechte Seite: Standbild -->
+  <div style="flex: 1; min-width: 250px;" id="rightSide">
+    <img id="resultImg"
+         style="height: 300px; width: auto; display: none; margin: 0 auto;" />
+  </div>
+
+</div>
+
+<script>
+  const animImg = document.getElementById('animImg');
+  const lineCanvas = document.getElementById('lineCanvas');
+  const animContainer = document.getElementById('animContainer');
+  const resultImg = document.getElementById('resultImg');
+
+  let paused = false;
+  let currentProgress = 0;
+  let animFrameId;
+  let startTimestamp = null;
+  const duration = 3000;
+
+  function resizeCanvas() {
+    // Canvas exakt auf das Bild ausrichten, nicht den Container
+    const imgRect = animImg.getBoundingClientRect();
+    const containerRect = animContainer.getBoundingClientRect();
+    lineCanvas.width = imgRect.width;
+    lineCanvas.height = imgRect.height;
+    lineCanvas.style.width = imgRect.width + 'px';
+    lineCanvas.style.height = imgRect.height + 'px';
+    lineCanvas.style.left = (imgRect.left - containerRect.left) + 'px';
+    lineCanvas.style.top = (imgRect.top - containerRect.top) + 'px';
+  }
+
+  function drawLine(progress) {
+    const ctx = lineCanvas.getContext('2d');
+    const w = lineCanvas.width;
+    const h = lineCanvas.height;
+    ctx.clearRect(0, 0, w, h);
+    const x = Math.round(progress * w);
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, h);
+    ctx.strokeStyle = '#7030A0';
+    ctx.lineWidth = Math.max(2, w / 120);
+    ctx.setLineDash([8, 6]);
+    ctx.stroke();
+  }
+
+  function getProgress(timestamp) {
+    if (!startTimestamp) startTimestamp = timestamp;
+    const elapsed = (timestamp - startTimestamp) % (duration * 2);
+    return elapsed < duration
+      ? elapsed / duration
+      : 1 - (elapsed - duration) / duration;
+  }
+
+  function animate(timestamp) {
+    if (paused) return;
+    currentProgress = getProgress(timestamp);
+    drawLine(currentProgress);
+    animFrameId = requestAnimationFrame(animate);
+  }
+
+  animContainer.addEventListener('click', () => {
+    if (!paused) {
+      paused = true;
+      cancelAnimationFrame(animFrameId);
+      const isRight = currentProgress > 0.5;
+      resultImg.src = isRight ? 'general_rechts.png' : 'general_links.png';
+      resultImg.style.display = 'block';
+    } else {
+      paused = false;
+      resultImg.style.display = 'none';
+      startTimestamp = null;
+      animFrameId = requestAnimationFrame(animate);
+    }
+  });
+
+  animImg.addEventListener('load', () => {
+    resizeCanvas();
+    animFrameId = requestAnimationFrame(animate);
+  });
+  window.addEventListener('resize', () => {
+    resizeCanvas();
+  });
+
+  if (animImg.complete) {
+    resizeCanvas();
+    animFrameId = requestAnimationFrame(animate);
+  }
+</script>
+
 
   <div style="display: flex; gap: 2rem; align-items: center; margin: 1.8rem 0; flex-wrap: wrap;">
   
