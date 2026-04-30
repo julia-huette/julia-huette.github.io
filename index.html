@@ -574,7 +574,9 @@
     } else {
       paused = false;
       resultImg.style.display = 'none';
+      // startTimestamp so setzen, dass die Animation bei currentProgress weitermacht
       startTimestamp = null;
+      resumeProgress = currentProgress;
       animFrameId = requestAnimationFrame(animate);
     }
   });
