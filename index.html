@@ -139,12 +139,12 @@
       display: block;
     }
     .figure.medium {
-      max-width: 75vw;
-      margin: 1.8rem auto;
-      display: block;
+    width: 75%;
+    margin: 1.8rem auto;
+    display: block;
     }
     .figure.small {
-      max-width: 50vw;
+      width: 50%;
       margin: 1.8rem auto;
       display: block;
     }
@@ -253,6 +253,10 @@
     footer a { color: var(--blue-light); }
 
     @media (max-width: 600px) {
+      .figure.medium,
+      .figure.small {
+        width: 100%;
+      }
       .nav-links {
         display: none;
         flex-direction: column;
