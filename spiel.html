@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Färbe-Spiel – Gemeindelotterie</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── VARIABLES ── */
+    :root {
+      --blue-lightest: #edf5fb;
+      --blue-light:    #c8dff2;
+      --blue-mid:      #7fb3d9;
+      --blue-dark:     #3a7dab;
+      --blue-deep:     #1e4f72;
+      --text:          #1a2e3d;
+      --text-light:    #4a6580;
+      --white:         #ffffff;
+      --box-bg:        #d6eaf6;
+      --box-border:    #a8cfe8;
+      --accent:        #e8a020;
+      --col-leer:      #f0f7fc;
+      --border-outer:  3px;
+      --border-inner:  1px;
+      --sq: 38px;
+    }
+    @media (max-width: 600px) { :root { --sq: 30px; } }
+    @media (max-width: 400px) { :root { --sq: 24px; } }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--blue-lightest);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 1.5rem 1rem 3rem;
+      touch-action: none; /* prevent scroll while touching grid */
+    }
+
+    /* ── HEADER ── */
+    .page-header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.3rem, 4vw, 1.9rem);
+      color: var(--blue-deep);
+      margin-bottom: 0.3rem;
+    }
+    .subtitle {
+      color: var(--text-light);
+      font-size: 0.88rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* ── OUTER LAYOUT ── */
+    /* On desktop: legend left, game right. On mobile: stacked. */
+    .outer-layout {
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+      justify-content: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ── LEGEND ── */
+    .legend-panel {
+      background: var(--white);
+      border: 2px solid var(--blue-light);
+      border-radius: 12px;
+      overflow: hidden;
+      flex-shrink: 0;
+      width: 180px;
+    }
+
+    .legend-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.7rem 1rem;
+      background: var(--box-bg);
+      cursor: pointer;
+      user-select: none;
+      border-bottom: 1.5px solid var(--blue-light);
+      font-family: 'Lora', serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--blue-deep);
+    }
+    .legend-toggle:hover { background: var(--blue-light); }
+    .legend-arrow {
+      font-size: 0.75rem;
+      transition: transform 0.3s;
+    }
+    .legend-panel.collapsed .legend-arrow { transform: rotate(-90deg); }
+
+    .legend-body {
+      padding: 0.9rem;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.3s;
+      max-height: 600px;
+    }
+    .legend-panel.collapsed .legend-body {
+      max-height: 0;
+      padding: 0 0.9rem;
+    }
+
+    .city-entry {
+      display: flex;
+      gap: 0.5rem;
+      align-items: flex-start;
+      margin-bottom: 0.9rem;
+    }
+    .city-entry:last-child { margin-bottom: 0; }
+
+    .city-mini-grid { display: flex; flex-direction: column; gap: 1px; flex-shrink: 0; }
+    .city-mini-row  { display: flex; gap: 1px; }
+    .mini-sq {
+      width: 7px; height: 7px;
+      border-radius: 1px;
+      border: 1px solid rgba(0,0,0,0.12);
+    }
+
+    .city-details { display: flex; flex-direction: column; gap: 0.1rem; min-width: 0; }
+    .city-info-line { font-size: 0.74rem; color: var(--text-light); white-space: nowrap; }
+    .city-count { font-size: 0.8rem; font-weight: 600; }
+    .city-count.ok   { color: var(--blue-dark); }
+    .city-count.done { color: #2a7a2a; }
+    .city-count.over { color: #c0392b; }
+    .ub-warning { font-size: 0.72rem; color: #c0392b; font-weight: 600; display: none; }
+    .ub-warning.visible { display: block; }
+
+    /* Mobile legend: horizontal strip at top */
+    @media (max-width: 700px) {
+      .outer-layout { flex-direction: column; align-items: center; }
+      .legend-panel { width: 100%; max-width: 480px; }
+      .legend-body {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.7rem;
+        padding: 0.8rem;
+      }
+      .legend-panel.collapsed .legend-body { display: none; }
+      .city-entry { margin-bottom: 0; flex: 1 1 120px; }
+    }
+
+    /* ── GAME COLUMN ── */
+    .game-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+      /* Fixed width = grid width so nothing shifts */
+      width: calc(var(--sq) * 6 + var(--border-outer) * 2 + 200px);
+      max-width: 100%;
+    }
+
+    /* ── COLOR PICKER ── */
+    .color-picker {
+      display: flex;
+      gap: 0.45rem;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+    }
+    .color-label { font-size: 0.78rem; color: var(--text-light); }
+    .color-btn {
+      width: 34px; height: 34px;
+      border-radius: 7px;
+      border: 3px solid transparent;
+      cursor: pointer;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+      transition: transform 0.1s, border-color 0.12s;
+      flex-shrink: 0;
+      touch-action: manipulation;
+    }
+    .color-btn:hover { transform: scale(1.1); }
+    .color-btn.selected { border-color: #111; transform: scale(1.13); }
+
+    /* ── GRID AREA ── */
+    /* Fixed-size container: grid + invisible placeholder for right side */
+    .grid-area {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      /* Reserve fixed width so nothing moves */
+    }
+
+    .grid-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      flex-shrink: 0;
+    }
+
+    .grid {
+      border: var(--border-outer) solid #111;
+      display: inline-flex;
+      flex-direction: column;
+      cursor: crosshair;
+      flex-shrink: 0;
+      touch-action: none;
+    }
+    .grid-row { display: flex; }
+    .sq {
+      width: var(--sq);
+      height: var(--sq);
+      background: var(--col-leer);
+      border-right: var(--border-inner) solid rgba(0,0,0,0.2);
+      border-bottom: var(--border-inner) solid rgba(0,0,0,0.2);
+      flex-shrink: 0;
+      transition: filter 0.06s;
+    }
+    .sq:last-child { border-right: none; }
+    .grid-row:last-child .sq { border-bottom: none; }
+    .sq.ub-violated { outline: 2px solid #c0392b; outline-offset: -2px; z-index: 1; position: relative; }
+
+    @keyframes colFlash {
+      0%   { filter: brightness(1.7) saturate(0); }
+      50%  { filter: brightness(0.6) saturate(3); }
+      100% { filter: brightness(1); }
+    }
+    .sq.flashing { animation: colFlash 0.35s ease 3; }
+
+    /* Col labels below */
+    .col-labels {
+      display: flex;
+      margin-top: 5px;
+      margin-left: var(--border-outer);
+    }
+    .col-label {
+      width: var(--sq);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .col-label img {
+      width: calc(var(--sq) * 0.65);
+      height: calc(var(--sq) * 0.65);
+      object-fit: contain;
+      transition: transform 0.3s, filter 0.3s;
+    }
+    .col-label img.highlighted {
+      filter: drop-shadow(0 0 5px #e8a020);
+      transform: scale(1.35);
+    }
+
+    /* Right side: arrow + result column — always takes up space */
+    .right-side {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      visibility: hidden;
+      flex-shrink: 0;
+    }
+    .right-side.visible { visibility: visible; }
+
+    .arrow-img { width: 32px; height: auto; flex-shrink: 0; }
+    @media (max-width: 400px) { .arrow-img { width: 22px; } }
+
+    .result-col-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+    .result-col {
+      border: 3px solid #111;
+      display: flex;
+      flex-direction: column;
+    }
+    .result-sq {
+      width: var(--sq);
+      height: var(--sq);
+      border-bottom: var(--border-inner) solid rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .result-sq:last-child { border-bottom: none; }
+    .result-sq img { width: calc(var(--sq) * 0.6); height: calc(var(--sq) * 0.6); object-fit: contain; }
+    .result-dice-icon {
+      width: calc(var(--sq) * 0.65);
+      height: calc(var(--sq) * 0.65);
+      object-fit: contain;
+    }
+
+    /* ── DICE ANIMATION ── */
+    .dice-anim { display: none; flex-direction: column; align-items: center; gap: 0.35rem; }
+    .dice-anim.visible { display: flex; }
+    .dice-anim img { width: 56px; height: 56px; object-fit: contain; }
+    @media (max-width: 400px) { .dice-anim img { width: 44px; height: 44px; } }
+
+    @keyframes diceWobble {
+      0%   { transform: rotate(0deg) scale(1); }
+      20%  { transform: rotate(9deg) scale(1.05); }
+      60%  { transform: rotate(-9deg) scale(0.97); }
+      100% { transform: rotate(0deg) scale(1); }
+    }
+    .dice-anim img.spinning { animation: diceWobble 0.55s ease-in-out infinite; }
+
+    /* ── BUTTONS ── */
+    .btn-row {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+    }
+    .btn {
+      padding: 0.55rem 1.2rem;
+      border-radius: 7px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.12s, box-shadow 0.12s;
+      touch-action: manipulation;
+    }
+    .btn:hover  { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(0,0,0,0.15); }
+    .btn:active { transform: translateY(0); box-shadow: none; }
+    .btn-check { background: var(--blue-deep); color: var(--white); }
+    .btn-clear { background: var(--white); color: var(--text); border: 1.5px solid var(--blue-light); }
+    .btn-dice  { background: var(--accent); color: var(--white); display: none; }
+    .btn-dice.visible { display: inline-block; }
+
+    /* ── RESULT MESSAGE ── */
+    .result-box {
+      width: 100%;
+      max-width: 420px;
+      border-radius: 10px;
+      padding: 0.85rem 1.1rem;
+      font-size: 0.87rem;
+      display: none;
+      line-height: 1.6;
+    }
+    .result-box.success { background: #eafaed; border: 1.5px solid #6dbf7e; color: #1e5c2a; display: block; }
+    .result-box.error   { background: #fdecea; border: 1.5px solid #e07070; color: #7a1a1a; display: block; }
+    .result-box ul { margin-top: 0.4rem; padding-left: 1.1rem; }
+    .result-box li { margin-bottom: 0.2rem; }
+  </style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Färbe das Rechteck!</h1>
+  <p class="subtitle">Verteile die Städte fair auf das Rechteck — achte auf Fairness, Obergrenzen und Gerechtigkeitsempfinden.</p>
+</div>
+
+<div class="outer-layout">
+
+  <!-- LEGEND PANEL -->
+  <div class="legend-panel" id="legendPanel">
+    <div class="legend-toggle" onclick="toggleLegend()">
+      Städte <span class="legend-arrow">▼</span>
+    </div>
+    <div class="legend-body" id="legendBody"></div>
+  </div>
+
+  <!-- GAME COLUMN -->
+  <div class="game-col">
+
+    <!-- Color picker -->
+    <div class="color-picker">
+      <span class="color-label">Farbe:</span>
+    </div>
+
+    <!-- Grid area -->
+    <div class="grid-area">
+
+      <div class="grid-wrapper">
+        <div class="grid" id="grid"></div>
+        <div class="col-labels" id="colLabels"></div>
+      </div>
+
+      <!-- Right side: always reserves space -->
+      <div class="right-side" id="rightSide">
+        <img class="arrow-img" src="arrow.png" alt="→" />
+        <div class="result-col-area">
+          <div class="result-col" id="resultCol"></div>
+          <img class="result-dice-icon" id="resultDiceIcon" src="dice1.png" alt="Würfel" />
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Dice animation -->
+    <div class="dice-anim" id="diceAnim">
+      <img id="diceAnimImg" src="dice1.png" alt="Würfel" />
+      <span style="font-size:0.8rem; color:var(--text-light);">Würfeln…</span>
+    </div>
+
+    <!-- Buttons -->
+    <div class="btn-row">
+      <button class="btn btn-check" id="btnCheck" onclick="checkSolution()">Lösung überprüfen</button>
+      <button class="btn btn-clear" onclick="clearGrid()">Alles leeren</button>
+      <button class="btn btn-dice" id="btnDice" onclick="rollDice()">🎲 Würfeln!</button>
+    </div>
+
+    <div class="result-box" id="resultBox"></div>
+
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+// EXAMPLE — swap this object to add new levels
+// ══════════════════════════════════════════
+const EXAMPLE = {
+  cols: 6,
+  rows: 10,
+  cities: [
+    { name: 'Gelb',  color: '#FFDF7F', pop: 30, ub: 10, miniCols: 3 },
+    { name: 'Rot',   color: '#DF7F7F', pop: 12, ub: 4,  miniCols: 3 },
+    { name: 'Blau',  color: '#97AACB', pop: 12, ub: 4,  miniCols: 3 },
+    { name: 'Grün',  color: '#B7D6A3', pop: 6,  ub: 2,  miniCols: 3 },
+  ]
+};
+
+// ── STATE ──
+let selectedColor = EXAMPLE.cities[0].color;
+let grid = Array.from({ length: EXAMPLE.rows }, () => Array(EXAMPLE.cols).fill(null));
+let solved = false;
+let rolling = false;
+let isDragging = false;
+let dragMode = null; // 'paint' | 'erase'
+
+function colorId(c) { return c.replace('#', ''); }
+
+// ── LEGEND ──
+function toggleLegend() {
+  document.getElementById('legendPanel').classList.toggle('collapsed');
+}
+
+function buildLegend() {
+  const body = document.getElementById('legendBody');
+  body.innerHTML = '';
+  EXAMPLE.cities.forEach(city => {
+    const entry = document.createElement('div');
+    entry.className = 'city-entry';
+
+    const miniGrid = document.createElement('div');
+    miniGrid.className = 'city-mini-grid';
+    for (let r = 0; r < city.ub; r++) {
+      const row = document.createElement('div');
+      row.className = 'city-mini-row';
+      for (let c = 0; c < city.miniCols; c++) {
+        const sq = document.createElement('div');
+        sq.className = 'mini-sq';
+        sq.style.background = city.color;
+        row.appendChild(sq);
+      }
+      miniGrid.appendChild(row);
+    }
+
+    const details = document.createElement('div');
+    details.className = 'city-details';
+
+    const infoE = document.createElement('div');
+    infoE.className = 'city-info-line';
+    infoE.textContent = `${city.pop} Einwohnende`;
+
+    const infoB = document.createElement('div');
+    infoB.className = 'city-info-line';
+    infoB.textContent = `max. ${city.ub} Briefe`;
+
+    const count = document.createElement('div');
+    count.className = 'city-count ok';
+    count.id = 'count-' + colorId(city.color);
+    count.textContent = `0 / ${city.pop}`;
+
+    const warn = document.createElement('div');
+    warn.className = 'ub-warning';
+    warn.id = 'warn-' + colorId(city.color);
+    warn.textContent = '⚠ Obergrenze verletzt!';
+
+    details.append(infoE, infoB, count, warn);
+    entry.append(miniGrid, details);
+    body.appendChild(entry);
+  });
+}
+
+// ── COLOR PICKER ──
+function buildColorPicker() {
+  const picker = document.querySelector('.color-picker');
+  EXAMPLE.cities.forEach(city => {
+    const btn = document.createElement('div');
+    btn.className = 'color-btn' + (city.color === selectedColor ? ' selected' : '');
+    btn.style.background = city.color;
+    btn.title = city.name;
+    btn.id = 'colorbtn-' + colorId(city.color);
+    btn.addEventListener('pointerdown', (e) => { e.stopPropagation(); selectColor(city.color); });
+    picker.appendChild(btn);
+  });
+}
+
+function selectColor(color) {
+  selectedColor = color;
+  document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('colorbtn-' + colorId(color)).classList.add('selected');
+}
+
+// ── GRID ──
+function buildGrid() {
+  const gridEl = document.getElementById('grid');
+  const colLabels = document.getElementById('colLabels');
+  gridEl.innerHTML = '';
+  colLabels.innerHTML = '';
+
+  for (let r = 0; r < EXAMPLE.rows; r++) {
+    const rowEl = document.createElement('div');
+    rowEl.className = 'grid-row';
+    for (let c = 0; c < EXAMPLE.cols; c++) {
+      const sq = document.createElement('div');
+      sq.className = 'sq';
+      sq.id = `sq-${r}-${c}`;
+      sq.dataset.r = r;
+      sq.dataset.c = c;
+      rowEl.appendChild(sq);
+    }
+    gridEl.appendChild(rowEl);
+  }
+
+  for (let c = 0; c < EXAMPLE.cols; c++) {
+    const lbl = document.createElement('div');
+    lbl.className = 'col-label';
+    lbl.id = 'collabel-' + c;
+    const img = document.createElement('img');
+    img.src = `dice${c + 1}.png`;
+    img.alt = `Würfel ${c + 1}`;
+    lbl.appendChild(img);
+    colLabels.appendChild(lbl);
+  }
+}
+
+// ── DRAG & TOUCH PAINTING ──
+function getSqFromPoint(x, y) {
+  const el = document.elementFromPoint(x, y);
+  if (el && el.classList.contains('sq')) return el;
+  return null;
+}
+
+function applyToSquare(r, c) {
+  const sq = document.getElementById(`sq-${r}-${c}`);
+  if (!sq) return;
+  if (dragMode === 'erase') {
+    grid[r][c] = null;
+    sq.style.background = '';
+  } else {
+    if (grid[r][c] === selectedColor) return; // don't re-paint same color while dragging
+    grid[r][c] = selectedColor;
+    sq.style.background = selectedColor;
+  }
+  updateLiveFeedback();
+  if (solved) resetSolvedState();
+}
+
+// Mouse events
+const gridEl = document.getElementById('grid');
+
+document.addEventListener('DOMContentLoaded', () => {
+  const grid = document.getElementById('grid');
+
+  grid.addEventListener('mousedown', (e) => {
+    const sq = e.target.closest('.sq');
+    if (!sq) return;
+    isDragging = true;
+    const r = parseInt(sq.dataset.r);
+    const c = parseInt(sq.dataset.c);
+    // Toggle on click: same color → erase, else paint
+    dragMode = (document.querySelector(`#grid`).__gridData?.[r]?.[c] === selectedColor
+      || window.grid[r][c] === selectedColor) ? 'erase' : 'paint';
+    applyToSquare(r, c);
+    e.preventDefault();
+  });
+
+  grid.addEventListener('mouseover', (e) => {
+    if (!isDragging) return;
+    const sq = e.target.closest('.sq');
+    if (!sq) return;
+    applyToSquare(parseInt(sq.dataset.r), parseInt(sq.dataset.c));
+  });
+
+  // Touch events
+  grid.addEventListener('touchstart', (e) => {
+    const touch = e.touches[0];
+    const el = document.elementFromPoint(touch.clientX, touch.clientY);
+    const sq = el?.closest?.('.sq') || (el?.classList?.contains('sq') ? el : null);
+    if (!sq) return;
+    isDragging = true;
+    const r = parseInt(sq.dataset.r);
+    const c = parseInt(sq.dataset.c);
+    dragMode = (window.grid[r][c] === selectedColor) ? 'erase' : 'paint';
+    applyToSquare(r, c);
+    e.preventDefault();
+  }, { passive: false });
+
+  grid.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    const touch = e.touches[0];
+    const el = document.elementFromPoint(touch.clientX, touch.clientY);
+    const sq = el?.closest?.('.sq') || (el?.classList?.contains('sq') ? el : null);
+    if (!sq) return;
+    applyToSquare(parseInt(sq.dataset.r), parseInt(sq.dataset.c));
+    e.preventDefault();
+  }, { passive: false });
+
+  grid.addEventListener('touchend', () => { isDragging = false; dragMode = null; });
+});
+
+window.addEventListener('mouseup', () => { isDragging = false; dragMode = null; });
+window.addEventListener('touchend', () => { isDragging = false; dragMode = null; });
+
+function resetSolvedState() {
+  solved = false;
+  document.getElementById('btnDice').classList.remove('visible');
+  document.getElementById('btnCheck').style.display = 'inline-block';
+  document.getElementById('rightSide').classList.remove('visible');
+  document.getElementById('diceAnim').classList.remove('visible');
+  document.querySelectorAll('.col-label img').forEach(img => img.classList.remove('highlighted'));
+}
+
+// ── LIVE FEEDBACK ──
+function updateLiveFeedback() {
+  const counts = {};
+  EXAMPLE.cities.forEach(city => counts[city.color] = 0);
+  window.grid.forEach(row => row.forEach(cell => {
+    if (cell && counts[cell] !== undefined) counts[cell]++;
+  }));
+
+  EXAMPLE.cities.forEach(city => {
+    const n = counts[city.color];
+    const el = document.getElementById('count-' + colorId(city.color));
+    if (el) {
+      el.textContent = `${n} / ${city.pop}`;
+      el.className = 'city-count ' + (n === city.pop ? 'done' : n > city.pop ? 'over' : 'ok');
+    }
+  });
+
+  const ubViolated = new Set();
+  document.querySelectorAll('.sq').forEach(sq => sq.classList.remove('ub-violated'));
+
+  for (let c = 0; c < EXAMPLE.cols; c++) {
+    EXAMPLE.cities.forEach(city => {
+      let cnt = 0;
+      const rows = [];
+      for (let r = 0; r < EXAMPLE.rows; r++) {
+        if (window.grid[r][c] === city.color) { cnt++; rows.push(r); }
+      }
+      if (cnt > city.ub) {
+        ubViolated.add(city.color);
+        rows.forEach(r => {
+          const sq = document.getElementById(`sq-${r}-${c}`);
+          if (sq) sq.classList.add('ub-violated');
+        });
+      }
+    });
+  }
+
+  EXAMPLE.cities.forEach(city => {
+    const warn = document.getElementById('warn-' + colorId(city.color));
+    if (warn) warn.classList.toggle('visible', ubViolated.has(city.color));
+  });
+}
+
+// ── CHECK ──
+function checkSolution() {
+  const errors = [];
+
+  const counts = {};
+  EXAMPLE.cities.forEach(city => counts[city.color] = 0);
+  window.grid.forEach(row => row.forEach(cell => {
+    if (cell && counts[cell] !== undefined) counts[cell]++;
+  }));
+  EXAMPLE.cities.forEach(city => {
+    const n = counts[city.color];
+    if (n !== city.pop) errors.push(`${city.name}: ${n} statt ${city.pop} Felder (Fairness)`);
+  });
+
+  for (let c = 0; c < EXAMPLE.cols; c++) {
+    EXAMPLE.cities.forEach(city => {
+      let cnt = 0;
+      for (let r = 0; r < EXAMPLE.rows; r++) if (window.grid[r][c] === city.color) cnt++;
+      if (cnt > city.ub) errors.push(`Spalte ${c + 1}: ${city.name} hat ${cnt} Felder (max. ${city.ub})`);
+    });
+  }
+
+  for (let c = 0; c < EXAMPLE.cols; c++) {
+    const colCounts = {};
+    EXAMPLE.cities.forEach(city => colCounts[city.color] = 0);
+    for (let r = 0; r < EXAMPLE.rows; r++) {
+      const cell = window.grid[r][c];
+      if (cell && colCounts[cell] !== undefined) colCounts[cell]++;
+    }
+    for (let i = 0; i < EXAMPLE.cities.length; i++) {
+      for (let j = 0; j < EXAMPLE.cities.length; j++) {
+        if (i === j) continue;
+        const A = EXAMPLE.cities[i];
+        const B = EXAMPLE.cities[j];
+        if (A.pop <= B.pop) continue;
+        if (colCounts[A.color] === 0 || colCounts[B.color] === 0) continue;
+        if (colCounts[A.color] < colCounts[B.color]) {
+          errors.push(`Spalte ${c + 1}: ${A.name} (größer) hat weniger Felder als ${B.name}`);
+        }
+      }
+    }
+  }
+
+  const uniqueErrors = [...new Set(errors)];
+  const box = document.getElementById('resultBox');
+
+  if (uniqueErrors.length === 0) {
+    let maxColors = 0;
+    for (let c = 0; c < EXAMPLE.cols; c++) {
+      const s = new Set();
+      for (let r = 0; r < EXAMPLE.rows; r++) if (window.grid[r][c]) s.add(window.grid[r][c]);
+      if (s.size > maxColors) maxColors = s.size;
+    }
+    box.className = 'result-box success';
+    box.innerHTML = `🎉 <strong>Sehr gut!</strong> Alle Kriterien erfüllt!<br>
+    Maximale Anzahl verschiedener Städte pro Spalte: <strong>${maxColors}</strong><br>
+    <span style="font-size:0.82rem; opacity:0.85;">Würfle jetzt, um eine zufällige Spalte auszuwählen!</span>`;
+    solved = true;
+    document.getElementById('btnDice').classList.add('visible');
+    document.getElementById('btnCheck').style.display = 'none';
+  } else {
+    box.className = 'result-box error';
+    box.innerHTML = `<strong>Noch nicht ganz!</strong> Folgende Probleme gefunden:
+    <ul>${uniqueErrors.map(e => `<li>${e}</li>`).join('')}</ul>`;
+    solved = false;
+    document.getElementById('btnDice').classList.remove('visible');
+  }
+}
+
+// ── DICE ──
+function rollDice() {
+  if (rolling || !solved) return;
+  rolling = true;
+
+  document.getElementById('rightSide').classList.remove('visible');
+  document.querySelectorAll('.col-label img').forEach(img => img.classList.remove('highlighted'));
+
+  const diceAnim = document.getElementById('diceAnim');
+  const diceImg  = document.getElementById('diceAnimImg');
+  diceAnim.classList.add('visible');
+  diceImg.classList.add('spinning');
+
+  const allDice = ['dice1.png','dice2.png','dice3.png','dice4.png','dice5.png','dice6.png'];
+  let cycle = 0;
+  const total = 26;
+
+  const interval = setInterval(() => {
+    diceImg.src = allDice[cycle % 6];
+    cycle++;
+    if (cycle >= total) {
+      clearInterval(interval);
+      const col = Math.floor(Math.random() * EXAMPLE.cols);
+      diceImg.src = allDice[col];
+      diceImg.classList.remove('spinning');
+
+      document.querySelector(`#collabel-${col} img`).classList.add('highlighted');
+
+      setTimeout(() => {
+        for (let r = 0; r < EXAMPLE.rows; r++) {
+          const sq = document.getElementById(`sq-${r}-${col}`);
+          if (sq) {
+            sq.classList.add('flashing');
+            setTimeout(() => sq.classList.remove('flashing'), 1050);
+          }
+        }
+        setTimeout(() => {
+          showResultColumn(col);
+          rolling = false;
+        }, 1100);
+      }, 300);
+    }
+  }, 180);
+}
+
+function showResultColumn(col) {
+  const resultCol = document.getElementById('resultCol');
+  resultCol.innerHTML = '';
+
+  for (let r = 0; r < EXAMPLE.rows; r++) {
+    const sq = document.createElement('div');
+    sq.className = 'result-sq';
+    sq.style.background = window.grid[r][col] || 'var(--col-leer)';
+    if (window.grid[r][col]) {
+      const img = document.createElement('img');
+      img.src = 'letter.svg';
+      img.alt = 'Brief';
+      sq.appendChild(img);
+    }
+    resultCol.appendChild(sq);
+  }
+
+  document.getElementById('resultDiceIcon').src = `dice${col + 1}.png`;
+  document.getElementById('rightSide').classList.add('visible');
+}
+
+// ── CLEAR ──
+function clearGrid() {
+  window.grid = Array.from({ length: EXAMPLE.rows }, () => Array(EXAMPLE.cols).fill(null));
+  document.querySelectorAll('.sq').forEach(sq => {
+    sq.style.background = '';
+    sq.classList.remove('ub-violated', 'flashing');
+  });
+  document.querySelectorAll('.col-label img').forEach(img => img.classList.remove('highlighted'));
+  document.getElementById('resultBox').className = 'result-box';
+  document.getElementById('btnDice').classList.remove('visible');
+  document.getElementById('btnCheck').style.display = 'inline-block';
+  document.getElementById('rightSide').classList.remove('visible');
+  document.getElementById('diceAnim').classList.remove('visible');
+  solved = false;
+  updateLiveFeedback();
+}
+
+// ── INIT ──
+window.grid = grid; // expose to functions
+buildLegend();
+buildColorPicker();
+buildGrid();
+updateLiveFeedback();
+</script>
+
+</body>
+</html>
