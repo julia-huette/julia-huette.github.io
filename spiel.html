@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Färbe-Spiel – Gemeindelotterie</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --blue-lightest: #edf5fb;
+      --blue-light:    #c8dff2;
+      --blue-mid:      #7fb3d9;
+      --blue-dark:     #3a7dab;
+      --blue-deep:     #1e4f72;
+      --text:          #1a2e3d;
+      --text-light:    #4a6580;
+      --white:         #ffffff;
+      --box-bg:        #d6eaf6;
+      --box-border:    #a8cfe8;
+      --accent:        #e8a020;
+
+      --col-leer: #f0f7fc;
+      --sq: 36px;
+      --border-outer: 3px;
+      --border-inner: 1px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--blue-lightest);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem 3rem;
+    }
+
+    h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      color: var(--blue-deep);
+      margin-bottom: 0.4rem;
+      text-align: center;
+    }
+    .subtitle {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      text-align: center;
+      margin-bottom: 1.8rem;
+      max-width: 540px;
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .game-layout {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      max-width: 960px;
+    }
+
+    /* ── LEGEND ── */
+    .legend {
+      background: var(--white);
+      border: 2px solid var(--blue-light);
+      border-radius: 12px;
+      padding: 1.2rem;
+      min-width: 175px;
+      flex-shrink: 0;
+    }
+    .legend h3 {
+      font-family: 'Lora', serif;
+      font-size: 0.95rem;
+      color: var(--blue-deep);
+      margin-bottom: 1rem;
+    }
+    .city-entry { margin-bottom: 1.1rem; }
+    .city-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.25rem;
+      font-weight: 600;
+      font-size: 0.88rem;
+    }
+    .city-dot {
+      width: 14px; height: 14px;
+      border-radius: 3px;
+      border: 1.5px solid rgba(0,0,0,0.18);
+      flex-shrink: 0;
+    }
+    .city-info {
+      font-size: 0.76rem;
+      color: var(--text-light);
+      margin-bottom: 0.35rem;
+    }
+
+    /* Mini grid */
+    .city-mini-grid { display: flex; flex-direction: column; gap: 1px; }
+    .city-mini-row  { display: flex; gap: 1px; }
+    .mini-sq {
+      width: 7px; height: 7px;
+      border-radius: 1px;
+      border: 1px solid rgba(0,0,0,0.12);
+    }
+
+    /* Live count */
+    .city-count { font-size: 0.82rem; font-weight: 600; margin-top: 0.3rem; }
+    .city-count.ok   { color: var(--blue-dark); }
+    .city-count.done { color: #2a7a2a; }
+    .city-count.over { color: #c0392b; }
+
+    .ub-warning {
+      font-size: 0.74rem;
+      color: #c0392b;
+      font-weight: 600;
+      display: none;
+      margin-top: 0.15rem;
+    }
+    .ub-warning.visible { display: block; }
+
+    /* ── CENTER ── */
+    .center-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.9rem;
+    }
+
+    /* Color picker */
+    .color-picker {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .color-label { font-size: 0.78rem; color: var(--text-light); }
+    .color-btn {
+      width: 36px; height: 36px;
+      border-radius: 7px;
+      border: 3px solid transparent;
+      cursor: pointer;
+      transition: transform 0.1s, border-color 0.15s;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    }
+    .color-btn:hover { transform: scale(1.1); }
+    .color-btn.selected { border-color: #111; transform: scale(1.13); }
+
+    /* Grid wrapper — thick black border */
+    .grid-area {
+      display: flex;
+      gap: 0.8rem;
+      align-items: flex-start;
+    }
+
+    .grid-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    /* Dice column labels */
+    .col-labels {
+      display: flex;
+      margin-left: var(--border-outer); /* align with grid */
+      margin-bottom: 4px;
+    }
+    .col-label {
+      width: var(--sq);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .col-label img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+      transition: transform 0.3s;
+    }
+    .col-label img.highlighted {
+      filter: drop-shadow(0 0 4px #e8a020);
+      transform: scale(1.3);
+    }
+
+    /* The actual grid — no gaps, thick outer border */
+    .grid {
+      border: var(--border-outer) solid #111;
+      display: inline-flex;
+      flex-direction: column;
+    }
+    .grid-row { display: flex; }
+    .sq {
+      width: var(--sq);
+      height: var(--sq);
+      background: var(--col-leer);
+      border-right: var(--border-inner) solid rgba(0,0,0,0.2);
+      border-bottom: var(--border-inner) solid rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: filter 0.08s;
+      flex-shrink: 0;
+    }
+    .sq:last-child { border-right: none; }
+    .grid-row:last-child .sq { border-bottom: none; }
+    .sq:hover { filter: brightness(0.88); }
+    .sq.ub-violated { outline: 2px solid #c0392b; outline-offset: -2px; z-index: 1; position: relative; }
+
+    /* Column flash animation */
+    @keyframes colFlash {
+      0%   { filter: brightness(1.5) saturate(0.3); }
+      50%  { filter: brightness(0.7) saturate(2); }
+      100% { filter: brightness(1); }
+    }
+    .sq.flashing { animation: colFlash 0.25s ease 3; }
+
+    /* Result column (selected column with letters) */
+    .result-col-wrapper {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .result-col-wrapper.visible { display: flex; }
+    .result-col-label {
+      font-size: 0.72rem;
+      color: var(--text-light);
+      font-style: italic;
+      margin-bottom: 2px;
+      text-align: center;
+    }
+    .result-col {
+      border: var(--border-outer) solid #111;
+      display: flex;
+      flex-direction: column;
+    }
+    .result-sq {
+      width: var(--sq);
+      height: var(--sq);
+      border-bottom: var(--border-inner) solid rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .result-sq:last-child { border-bottom: none; }
+    .result-sq img {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+    }
+
+    /* Buttons */
+    .btn-row {
+      display: flex;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .btn {
+      padding: 0.55rem 1.3rem;
+      border-radius: 7px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.12s, box-shadow 0.12s;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(0,0,0,0.15); }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+    .btn-check { background: var(--blue-deep); color: var(--white); }
+    .btn-clear { background: var(--white); color: var(--text); border: 1.5px solid var(--blue-light); }
+    .btn-dice  { background: var(--accent); color: var(--white); display: none; }
+    .btn-dice.visible { display: inline-block; }
+
+    /* Dice animation overlay */
+    .dice-anim {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .dice-anim.visible { display: flex; }
+    .dice-anim img {
+      width: 64px; height: 64px;
+      object-fit: contain;
+    }
+    @keyframes diceSpin {
+      0%   { transform: rotate(0deg) scale(1); }
+      25%  { transform: rotate(15deg) scale(1.1); }
+      50%  { transform: rotate(-15deg) scale(0.95); }
+      75%  { transform: rotate(10deg) scale(1.05); }
+      100% { transform: rotate(0deg) scale(1); }
+    }
+    .dice-anim img.spinning { animation: diceSpin 0.15s ease infinite; }
+
+    /* Result message box */
+    .result-box {
+      max-width: 420px;
+      width: 100%;
+      border-radius: 10px;
+      padding: 0.9rem 1.2rem;
+      font-size: 0.88rem;
+      display: none;
+      line-height: 1.6;
+    }
+    .result-box.success { background: #eafaed; border: 1.5px solid #6dbf7e; color: #1e5c2a; display: block; }
+    .result-box.error   { background: #fdecea; border: 1.5px solid #e07070; color: #7a1a1a; display: block; }
+    .result-box ul { margin-top: 0.4rem; padding-left: 1.2rem; }
+    .result-box li { margin-bottom: 0.25rem; }
+
+    @media (max-width: 480px) {
+      :root { --sq: 26px; }
+      .col-label img { width: 18px; height: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<h1>Färbe das Rechteck!</h1>
+<p class="subtitle">Verteile die Städte fair auf das Rechteck — achte auf Fairness, Obergrenzen und Gerechtigkeitsempfinden.</p>
+
+<div class="game-layout">
+
+  <!-- LEGEND -->
+  <div class="legend" id="legend">
+    <h3>Städte</h3>
+  </div>
+
+  <!-- CENTER -->
+  <div class="center-col">
+
+    <!-- Color picker -->
+    <div class="color-picker">
+      <span class="color-label">Farbe wählen:</span>
+    </div>
+
+    <!-- Grid + result column -->
+    <div class="grid-area">
+      <div class="grid-wrapper">
+        <div class="col-labels" id="colLabels"></div>
+        <div class="grid" id="grid"></div>
+      </div>
+
+      <!-- Result column (shown after rolling) -->
+      <div class="result-col-wrapper" id="resultColWrapper">
+        <div class="result-col-label">Ausgewählte<br>Spalte</div>
+        <div class="result-col" id="resultCol"></div>
+      </div>
+    </div>
+
+    <!-- Dice animation -->
+    <div class="dice-anim" id="diceAnim">
+      <img id="diceAnimImg" src="dice1.png" alt="Würfel" />
+      <span style="font-size:0.82rem; color:var(--text-light);">Würfeln…</span>
+    </div>
+
+    <!-- Buttons -->
+    <div class="btn-row">
+      <button class="btn btn-check" id="btnCheck" onclick="checkSolution()">Lösung überprüfen</button>
+      <button class="btn btn-clear" onclick="clearGrid()">Alles leeren</button>
+      <button class="btn btn-dice" id="btnDice" onclick="rollDice()">🎲 Würfeln!</button>
+    </div>
+
+    <!-- Result message -->
+    <div class="result-box" id="resultBox"></div>
+
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+// EXAMPLE CONFIGURATION
+// To add a new example: copy this object and swap it in below.
+// ══════════════════════════════════════════
+const EXAMPLE = {
+  cols: 6,
+  rows: 10,
+  cities: [
+    { name: 'Gelb',  color: '#FFDF7F', pop: 30, ub: 10, miniCols: 3 },
+    { name: 'Rot',   color: '#DF7F7F', pop: 12, ub: 4,  miniCols: 3 },
+    { name: 'Blau',  color: '#97AACB', pop: 12, ub: 4,  miniCols: 3 },
+    { name: 'Grün',  color: '#B7D6A3', pop: 6,  ub: 2,  miniCols: 3 },
+  ]
+};
+
+// ── STATE ──
+let selectedColor = EXAMPLE.cities[0].color;
+let grid = Array.from({ length: EXAMPLE.rows }, () => Array(EXAMPLE.cols).fill(null));
+let solved = false;
+
+// ── HELPERS ──
+function colorId(color) { return color.replace('#',''); }
+
+// ── BUILD COLOR PICKER ──
+function buildColorPicker() {
+  const picker = document.querySelector('.color-picker');
+  EXAMPLE.cities.forEach(city => {
+    const btn = document.createElement('div');
+    btn.className = 'color-btn' + (city.color === selectedColor ? ' selected' : '');
+    btn.style.background = city.color;
+    btn.title = city.name;
+    btn.id = 'colorbtn-' + colorId(city.color);
+    btn.onclick = () => selectColor(city.color);
+    picker.appendChild(btn);
+  });
+}
+
+function selectColor(color) {
+  selectedColor = color;
+  document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('colorbtn-' + colorId(color)).classList.add('selected');
+}
+
+// ── BUILD LEGEND ──
+function buildLegend() {
+  const legend = document.getElementById('legend');
+  legend.innerHTML = '<h3>Städte</h3>';
+  EXAMPLE.cities.forEach(city => {
+    const entry = document.createElement('div');
+    entry.className = 'city-entry';
+    entry.id = 'entry-' + colorId(city.color);
+
+    const label = document.createElement('div');
+    label.className = 'city-label';
+    label.innerHTML = `<div class="city-dot" style="background:${city.color}"></div><span>${city.name}</span>`;
+
+    const info = document.createElement('div');
+    info.className = 'city-info';
+    info.textContent = `${city.pop} Einwohnende · max. ${city.ub}/Spalte`;
+
+    // Mini grid: ub rows × miniCols cols
+    const miniGrid = document.createElement('div');
+    miniGrid.className = 'city-mini-grid';
+    for (let r = 0; r < city.ub; r++) {
+      const row = document.createElement('div');
+      row.className = 'city-mini-row';
+      for (let c = 0; c < city.miniCols; c++) {
+        const sq = document.createElement('div');
+        sq.className = 'mini-sq';
+        sq.style.background = city.color;
+        row.appendChild(sq);
+      }
+      miniGrid.appendChild(row);
+    }
+
+    const count = document.createElement('div');
+    count.className = 'city-count ok';
+    count.id = 'count-' + colorId(city.color);
+    count.textContent = `0 / ${city.pop}`;
+
+    const warn = document.createElement('div');
+    warn.className = 'ub-warning';
+    warn.id = 'warn-' + colorId(city.color);
+    warn.textContent = '⚠ Obergrenze verletzt!';
+
+    entry.appendChild(label);
+    entry.appendChild(info);
+    entry.appendChild(miniGrid);
+    entry.appendChild(count);
+    entry.appendChild(warn);
+    legend.appendChild(entry);
+  });
+}
+
+// ── BUILD GRID ──
+function buildGrid() {
+  const colLabels = document.getElementById('colLabels');
+  const gridEl = document.getElementById('grid');
+  colLabels.innerHTML = '';
+  gridEl.innerHTML = '';
+
+  for (let c = 0; c < EXAMPLE.cols; c++) {
+    const lbl = document.createElement('div');
+    lbl.className = 'col-label';
+    lbl.id = 'collabel-' + c;
+    const img = document.createElement('img');
+    img.src = `dice${c+1}.png`;
+    img.alt = `Würfel ${c+1}`;
+    lbl.appendChild(img);
+    colLabels.appendChild(lbl);
+  }
+
+  for (let r = 0; r < EXAMPLE.rows; r++) {
+    const rowEl = document.createElement('div');
+    rowEl.className = 'grid-row';
+    for (let c = 0; c < EXAMPLE.cols; c++) {
+      const sq = document.createElement('div');
+      sq.className = 'sq';
+      sq.id = `sq-${r}-${c}`;
+      sq.onclick = () => paintSquare(r, c);
+      rowEl.appendChild(sq);
+    }
+    gridEl.appendChild(rowEl);
+  }
+}
+
+// ── PAINT ──
+function paintSquare(r, c) {
+  const sq = document.getElementById(`sq-${r}-${c}`);
+  // Toggle: if same color, clear it
+  if (grid[r][c] === selectedColor) {
+    grid[r][c] = null;
+    sq.style.background = '';
+  } else {
+    grid[r][c] = selectedColor;
+    sq.style.background = selectedColor;
+  }
+  updateLiveFeedback();
+  // Hide result when grid changes
+  if (solved) {
+    solved = false;
+    document.getElementById('btnDice').classList.remove('visible');
+    document.getElementById('resultColWrapper').classList.remove('visible');
+    document.getElementById('diceAnim').classList.remove('visible');
+  }
+}
+
+// ── LIVE FEEDBACK ──
+function updateLiveFeedback() {
+  const counts = {};
+  EXAMPLE.cities.forEach(city => counts[city.color] = 0);
+  grid.forEach(row => row.forEach(cell => {
+    if (cell && counts[cell] !== undefined) counts[cell]++;
+  }));
+
+  EXAMPLE.cities.forEach(city => {
+    const n = counts[city.color];
+    const el = document.getElementById('count-' + colorId(city.color));
+    el.textContent = `${n} / ${city.pop}`;
+    el.className = 'city-count ' + (n === city.pop ? 'done' : n > city.pop ? 'over' : 'ok');
+  });
+
+  // UB violations
+  const ubViolated = new Set();
+  document.querySelectorAll('.sq').forEach(sq => sq.classList.remove('ub-violated'));
+
+  for (let c = 0; c < EXAMPLE.cols; c++) {
+    EXAMPLE.cities.forEach(city => {
+      let cnt = 0;
+      const rows = [];
+      for (let r = 0; r < EXAMPLE.rows; r++) {
+        if (grid[r][c] === city.color) { cnt++; rows.push(r); }
+      }
+      if (cnt > city.ub) {
+        ubViolated.add(city.color);
+        rows.forEach(r => document.getElementById(`sq-${r}-${c}`).classList.add('ub-violated'));
+      }
+    });
+  }
+
+  EXAMPLE.cities.forEach(city => {
+    document.getElementById('warn-' + colorId(city.color))
+      .classList.toggle('visible', ubViolated.has(city.color));
+  });
+}
+
+// ── CHECK SOLUTION ──
+function checkSolution() {
+  const errors = [];
+
+  // 1. Fairness
+  const counts = {};
+  EXAMPLE.cities.forEach(city => counts[city.color] = 0);
+  grid.forEach(row => row.forEach(cell => {
+    if (cell && counts[cell] !== undefined) counts[cell]++;
+  }));
+  EXAMPLE.cities.forEach(city => {
+    const n = counts[city.color];
+    if (n !== city.pop) errors.push(`${city.name}: ${n} statt ${city.pop} Felder (Fairness)`);
+  });
+
+  // 2. Upper bounds
+  for (let c = 0; c < EXAMPLE.cols; c++) {
+    EXAMPLE.cities.forEach(city => {
+      let cnt = 0;
+      for (let r = 0; r < EXAMPLE.rows; r++) if (grid[r][c] === city.color) cnt++;
+      if (cnt > city.ub) errors.push(`Spalte ${c+1}: ${city.name} hat ${cnt} Felder (max. ${city.ub})`);
+    });
+  }
+
+  // 3. Gerechtigkeitsempfinden — ignore cities with 0 in that column
+  const sorted = [...EXAMPLE.cities].sort((a, b) => a.pop - b.pop);
+  for (let c = 0; c < EXAMPLE.cols; c++) {
+    const colCounts = {};
+    EXAMPLE.cities.forEach(city => colCounts[city.color] = 0);
+    for (let r = 0; r < EXAMPLE.rows; r++) {
+      if (grid[r][c] && colCounts[grid[r][c]] !== undefined) colCounts[grid[r][c]]++;
+    }
+    for (let i = 0; i < sorted.length; i++) {
+      for (let j = i + 1; j < sorted.length; j++) {
+        const smaller = sorted[i];
+        const larger  = sorted[j];
+        // Only compare if both have > 0 in this column
+        if (colCounts[smaller.color] > 0 && colCounts[larger.color] > 0) {
+          if (colCounts[larger.color] < colCounts[smaller.color]) {
+            errors.push(`Spalte ${c+1}: ${larger.name} (größer) hat weniger Felder als ${smaller.name} (kleiner)`);
+          }
+        }
+      }
+    }
+  }
+
+  const box = document.getElementById('resultBox');
+
+  if (errors.length === 0) {
+    // Count max colors per column
+    let maxColors = 0;
+    for (let c = 0; c < EXAMPLE.cols; c++) {
+      const s = new Set();
+      for (let r = 0; r < EXAMPLE.rows; r++) if (grid[r][c]) s.add(grid[r][c]);
+      if (s.size > maxColors) maxColors = s.size;
+    }
+    box.className = 'result-box success';
+    box.innerHTML = `🎉 <strong>Sehr gut!</strong> Alle Kriterien erfüllt!<br>
+    Maximale Anzahl verschiedener Städte pro Spalte: <strong>${maxColors}</strong><br>
+    <span style="font-size:0.82rem;">Würfle jetzt, um eine zufällige Spalte auszuwählen!</span>`;
+    solved = true;
+    document.getElementById('btnDice').classList.add('visible');
+  } else {
+    box.className = 'result-box error';
+    box.innerHTML = `<strong>Noch nicht ganz!</strong> Probleme gefunden:
+    <ul>${errors.map(e => `<li>${e}</li>`).join('')}</ul>`;
+    solved = false;
+    document.getElementById('btnDice').classList.remove('visible');
+    document.getElementById('resultColWrapper').classList.remove('visible');
+  }
+}
+
+// ── ROLL DICE ──
+let rolling = false;
+function rollDice() {
+  if (rolling || !solved) return;
+  rolling = true;
+
+  // Hide previous result column
+  document.getElementById('resultColWrapper').classList.remove('visible');
+
+  // Show dice animation
+  const diceAnim = document.getElementById('diceAnim');
+  const diceImg  = document.getElementById('diceAnimImg');
+  diceAnim.classList.add('visible');
+  diceImg.classList.add('spinning');
+
+  // Rapidly cycle through dice images
+  const allDice = ['dice1.png','dice2.png','dice3.png','dice4.png','dice5.png','dice6.png'];
+  let cycleCount = 0;
+  const totalCycles = 18; // how many flips before settling
+  const interval = setInterval(() => {
+    diceImg.src = allDice[cycleCount % 6];
+    cycleCount++;
+    if (cycleCount >= totalCycles) {
+      clearInterval(interval);
+      // Pick random column
+      const chosenCol = Math.floor(Math.random() * EXAMPLE.cols);
+      const finalDice = allDice[chosenCol]; // dice matches column index
+      diceImg.src = finalDice;
+      diceImg.classList.remove('spinning');
+
+      // Highlight chosen column label
+      document.querySelectorAll('.col-label img').forEach(img => img.classList.remove('highlighted'));
+      document.querySelector(`#collabel-${chosenCol} img`).classList.add('highlighted');
+
+      // Flash squares in chosen column
+      setTimeout(() => {
+        for (let r = 0; r < EXAMPLE.rows; r++) {
+          const sq = document.getElementById(`sq-${r}-${chosenCol}`);
+          sq.classList.add('flashing');
+          setTimeout(() => sq.classList.remove('flashing'), 800);
+        }
+
+        // Show result column
+        setTimeout(() => {
+          showResultColumn(chosenCol);
+          rolling = false;
+        }, 900);
+      }, 200);
+    }
+  }, 80);
+}
+
+function showResultColumn(col) {
+  const wrapper = document.getElementById('resultColWrapper');
+  const resultCol = document.getElementById('resultCol');
+  resultCol.innerHTML = '';
+
+  for (let r = 0; r < EXAMPLE.rows; r++) {
+    const sq = document.createElement('div');
+    sq.className = 'result-sq';
+    sq.style.background = grid[r][col] || 'var(--col-leer)';
+    if (grid[r][col]) {
+      const img = document.createElement('img');
+      img.src = 'letter.svg';
+      img.alt = 'Brief';
+      sq.appendChild(img);
+    }
+    resultCol.appendChild(sq);
+  }
+
+  wrapper.classList.add('visible');
+}
+
+// ── CLEAR ──
+function clearGrid() {
+  grid = Array.from({ length: EXAMPLE.rows }, () => Array(EXAMPLE.cols).fill(null));
+  document.querySelectorAll('.sq').forEach(sq => {
+    sq.style.background = '';
+    sq.classList.remove('ub-violated', 'flashing');
+  });
+  document.querySelectorAll('.col-label img').forEach(img => img.classList.remove('highlighted'));
+  document.getElementById('resultBox').className = 'result-box';
+  document.getElementById('btnDice').classList.remove('visible');
+  document.getElementById('resultColWrapper').classList.remove('visible');
+  document.getElementById('diceAnim').classList.remove('visible');
+  solved = false;
+  updateLiveFeedback();
+}
+
+// ── INIT ──
+buildColorPicker();
+buildLegend();
+buildGrid();
+updateLiveFeedback();
+</script>
+
+</body>
+</html>
