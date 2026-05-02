@@ -557,11 +557,11 @@ function applyToSquare(r, c) {
   const sq = document.getElementById(`sq-${r}-${c}`);
   if (!sq) return;
   if (dragMode === 'erase') {
-    grid[r][c] = null;
+    window.grid[r][c] = null;
     sq.style.background = '';
   } else {
-    if (grid[r][c] === selectedColor) return; // don't re-paint same color while dragging
-    grid[r][c] = selectedColor;
+    if (window.grid[r][c] === selectedColor) return;
+    window.grid[r][c] = selectedColor;
     sq.style.background = selectedColor;
   }
   updateLiveFeedback();
