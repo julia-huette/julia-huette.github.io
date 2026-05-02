@@ -95,11 +95,12 @@
       border: none;
     }
     .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
-    /* .btn-primary { background: var(--accent); color: var(--white); }
-    .btn-secondary { background: rgba(255,255,255,0.15); color: var(--white); border: 1.5px solid rgba(255,255,255,0.4); }
-    .btn-tertiary { background: rgba(255,255,255,0.05); color: var(--white); border: 1.5px solid rgba(255,255,255,0.2); } */
-    .btn-primary { background: var(--white); color: var(--blue-deep); }
-    .btn-secondary { background: var(--accent); color: var(--white); border: none; }
+    /* .btn-primary { background: var(--accent); color: var(--white); } */
+    .btn-primary { background: rgba(255,255,255,0.15); color: var(--white); border: 1.5px solid rgba(255,255,255,0.4); }
+    .btn-secondary { background: rgba(255,255,255,0.05); color: var(--white); border: 1.5px solid rgba(255,255,255,0.2); } 
+    /*.btn-primary { background: var(--white); color: var(--blue-deep); }
+    .btn-primary { background: var(--accent); color: var(--white); border: none; }
+    .btn-primary { background: var(--white); color: var(--blue-deep); } */
     
     /* SECTIONS */
     section {
@@ -263,7 +264,6 @@
         width: 100% !important;
       }
       #arrowImg { width: 5vh; }
-      .nav-spiel-desktop { display: none; }
       .nav-spiel-mobile { display: block; }
       
       .figure.medium,
@@ -304,7 +304,6 @@
 <!-- NAV -->
 <nav>
   <span class="nav-logo">Gemeindelotterie</span>
-  <a href="spiel.html" target="_blank" class="nav-spiel-desktop">🎮 Zum Spiel</a>
   <button class="hamburger" onclick="toggleMenu()">☰</button>
   <ul class="nav-links" id="navLinks">
     <li><a href="#grundproblem" onclick="toggleMenu()">Grundproblem</a></li>
