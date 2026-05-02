@@ -252,6 +252,13 @@
     }
     footer a { color: var(--blue-light); }
 
+    <style>
+      #arrowImg { width: 10vh; }
+      @media (max-width: 600px) {
+        #arrowImg { width: 4vh; }
+      }
+    </style>
+    
     @media (max-width: 600px) {
       video {
         width: 100% !important;
@@ -524,7 +531,7 @@
 
   <p>Bild 4 aus unserem Beispiel könnte dann zum Beispiel so aussehen:</p>
 
-<div style="display: flex; gap: 1rem; align-items: center; margin: 1rem 0;">
+<div style="display: flex; gap: 1rem; align-items: center; margin: 1.8rem 0;">
   
   <!-- Linke Seite: Animation -->
   <div style="position: relative; cursor: pointer; flex-shrink: 0;" id="animContainer">
@@ -539,7 +546,7 @@
   <!-- Mitte: Pfeil -->
   <div style="display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
     <img id="arrowImg" src="arrow.png" alt="Pfeil"
-         style="height: auto; width: 5vh; display: none;" />
+         style="height: auto; width: 10vh; display: none;" />
   </div>
 
   <!-- Rechte Seite: Standbild -->
