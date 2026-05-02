@@ -52,28 +52,13 @@
     }
     .nav-links { display: flex; gap: 2rem; list-style: none; }
     .nav-links a {
-      color: var(--blue-light);
+      color: rgba(255,255,255,0.8);
       text-decoration: none;
       font-size: 0.95rem;
       font-weight: 500;
       transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--white); }
-
-    .nav-spiel-desktop {
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95rem;
-      border: 1.5px solid var(--accent);
-      padding: 0.3rem 0.9rem;
-      border-radius: 6px;
-      transition: background 0.2s, color 0.2s;
-    }
-    .nav-spiel-desktop:hover {
-      background: var(--accent);
-      color: var(--white);
-    }
     .nav-spiel-mobile { display: none; }
 
     /* HERO */
@@ -110,9 +95,12 @@
       border: none;
     }
     .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
-    .btn-primary { background: var(--accent); color: var(--white); }
+    /* .btn-primary { background: var(--accent); color: var(--white); }
     .btn-secondary { background: rgba(255,255,255,0.15); color: var(--white); border: 1.5px solid rgba(255,255,255,0.4); }
-    .btn-tertiary { background: rgba(255,255,255,0.05); color: var(--white); border: 1.5px solid rgba(255,255,255,0.2); }
+    .btn-tertiary { background: rgba(255,255,255,0.05); color: var(--white); border: 1.5px solid rgba(255,255,255,0.2); } */
+    .btn-primary { background: var(--white); color: var(--blue-deep); }
+    .btn-secondary { background: var(--accent); color: var(--white); border: none; }
+    
     /* SECTIONS */
     section {
       max-width: 820px;
@@ -322,7 +310,7 @@
     <li><a href="#grundproblem" onclick="toggleMenu()">Grundproblem</a></li>
     <li><a href="#darstellung" onclick="toggleMenu()">Bildliche Darstellung</a></li>
     <li><a href="#lösung" onclick="toggleMenu()">Lösung</a></li>
-    <li class="nav-spiel-mobile"><a href="spiel.html" target="_blank" onclick="toggleMenu()">🎮 Zum Spiel</a></li>
+    <li><a href="spiel.html" target="_blank" onclick="toggleMenu()" class="nav-spiel">🎮 Zum Spiel</a></li>
   </ul>
 </nav>
 
