@@ -156,11 +156,15 @@
     }
 
    /* FOLDOUT */
-.foldout {
-  background: var(--box-bg);
+.foldout-wrapper {
   border: 1.5px solid var(--box-border);
   border-radius: 10px;
+  overflow: hidden;
   margin: 1.8rem 0;
+}
+.foldout {
+  background: var(--box-bg);
+  border-radius: 0px;
   overflow: hidden;
 }
 .foldout-header {
@@ -348,8 +352,8 @@
 
   <p>In Deutschland gibt es eine solche zentrale Liste aber nicht — stattdessen verwaltet jede Stadt die Daten ihrer Einwohnenden selbst (oder um genau zu sein: jede Kommune). Wir können also nicht direkt zufällig Menschen auswählen. Stattdessen müssen wir zufällig <strong>Städte</strong> auswählen und jeder Stadt eine gewisse Anzahl Einladungsbriefe zuordnen, die innerhalb der Stadt zufällig verteilt werden.</p>
 
-  <div style="border: 1.5px solid var(--box-border); border-radius: 10px; overflow: hidden; margin: 1.8rem 0;">
-  <div class="foldout" style="margin: 0; border: none; border-bottom: 1.5px solid var(--box-border);">
+  <div class="foldout-wrapper">
+  <div class="foldout" style="border-bottom: 1.5px solid var(--box-border);">
     <div class="foldout-header" onclick="toggleFoldout(this)">
       <span class="foldout-question">💡 Warum gibt es kein zentrales Melderegister in Deutschland?</span>
       <span class="foldout-icon">+</span>
@@ -360,7 +364,7 @@
       </div>
       </div>
   </div>
-  <div class="foldout" style="margin: 0; border: none;">
+  <div class="foldout">
     <div class="foldout-header" onclick="toggleFoldout(this)">
       <span class="foldout-question">💡 Könnte man nicht einfach alle Städte auswählen und ihnen ihren Anteil an Briefen geben?</span>
       <span class="foldout-icon">+</span>
@@ -441,41 +445,45 @@
     Erstens werden alle Einwohnenden der grünen Stadt eingeladen, falls eine 1 gewürfelt wird.
     Tatsächlich hat aber jede Stadt eine maximale Anzahl an Briefen, die sie verschicken darf, die kleiner als die Anzahl Einwohnender ist. <p>
 
-    <div class="foldout">
-    <div class="foldout-header" onclick="toggleFoldout(this)">
-      <span class="foldout-question">💡 Warum darf eine Stadt nicht alle ihre Adressen herausgeben?</span>
-      <span class="foldout-icon">+</span>
+    <div class="foldout-wrapper">
+      <div class="foldout">
+      <div class="foldout-header" onclick="toggleFoldout(this)">
+        <span class="foldout-question">💡 Warum darf eine Stadt nicht alle ihre Adressen herausgeben?</span>
+        <span class="foldout-icon">+</span>
+      </div>
+      <div class="foldout-body">
+        <div class="foldout-body-inner">
+        <p>Es gibt zwei Gründe: Erstens soll Überrepräsentation einer Stadt vermieden werden — wenn alle Einwohnenden einer kleinen Stadt eingeladen werden, ist diese Stadt unverhältnismäßig stark vertreten. 
+          Zweitens ist Datenschutz ein wichtiger Grund: Die Herausgabe aller Adressen einer Stadt auf einmal birgt ein höheres Risiko für Missbrauch. 
+          Deshalb gibt es für jede Stadt eine maximale Anzahl Briefe, die sie verschicken darf.</p>
+        </div>
+        </div>
     </div>
-    <div class="foldout-body">
-      <div class="foldout-body-inner">
-      <p>Es gibt zwei Gründe: Erstens soll Überrepräsentation einer Stadt vermieden werden — wenn alle Einwohnenden einer kleinen Stadt eingeladen werden, ist diese Stadt unverhältnismäßig stark vertreten. 
-        Zweitens ist Datenschutz ein wichtiger Grund: Die Herausgabe aller Adressen einer Stadt auf einmal birgt ein höheres Risiko für Missbrauch. 
-        Deshalb gibt es für jede Stadt eine maximale Anzahl Briefe, die sie verschicken darf.</p>
-      </div>
-      </div>
-  </div>
+    </div>
     
     <p>Nun zum zweiten Nachteil von Bild 3: Es kann vorkommen, dass eine deutlich kleinere Stadt viel mehr Briefe erhält als eine größere.
     Wenn nämlich eine 2 oder 4 gewürfelt wird, erhält die gelbe Stadt nur einen einzigen Brief, während die deutlich kleinere rote bzw. blaue Stadt ganze 9 Briefe erhält.
     Weil die Briefe so unbalanciert verteilt sind, empfinden Menschen das im Nachhinein oft als ungerecht.
     </p>
 
-  <div class="foldout">
-    <div class="foldout-header" onclick="toggleFoldout(this)">
-      <span class="foldout-question">💡 Warum der Auswahlprozess trotzdem fair ist:</span>
-      <span class="foldout-icon">+</span>
-    </div>
-    <div class="foldout-body">
-      <div class="foldout-body-inner">
-      <p> Der Auswahlprozess ist trotzdem insgesamt fair, da jede Stadt genau so viele Felder wie Einwohnende hat. 
-        Wenn eine 2 oder 4 gewürfelt wird, erhält die gelbe Stadt zwar nur einen Brief, aber bei einer 3, 5 oder 6 erhält sie viel mehr.
-        Das gleicht sich insgesamt aus. 
-        Dennoch könnten es Menschen im Nachhinein als unfair empfinden, wenn die Briefe so unbalanciert verteilt werden.
-        Es geht hier also eher um das Gerechtigkeitsempfinden.
-        </p>
+    <div class="foldout-wrapper">
+      <div class="foldout">
+        <div class="foldout-header" onclick="toggleFoldout(this)">
+          <span class="foldout-question">💡 Warum der Auswahlprozess trotzdem fair ist:</span>
+          <span class="foldout-icon">+</span>
+        </div>
+        <div class="foldout-body">
+          <div class="foldout-body-inner">
+          <p> Der Auswahlprozess ist trotzdem insgesamt fair, da jede Stadt genau so viele Felder wie Einwohnende hat. 
+            Wenn eine 2 oder 4 gewürfelt wird, erhält die gelbe Stadt zwar nur einen Brief, aber bei einer 3, 5 oder 6 erhält sie viel mehr.
+            Das gleicht sich insgesamt aus. 
+            Dennoch könnten es Menschen im Nachhinein als unfair empfinden, wenn die Briefe so unbalanciert verteilt werden.
+            Es geht hier also eher um das Gerechtigkeitsempfinden.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 
   <p><strong>Bild 4 – Der beste Kompromiss:</strong> <br>
     Vielleicht der beste Kompromiss aus den genannten Vor- und Nachteilen ist hier abgebildet.
@@ -702,6 +710,7 @@
   <source src="GreedyEqualScene_big.mp4" type="video/mp4">
 </video>
 
+<div class="foldout-wrapper">
   <div class="foldout">
     <div class="foldout-header" onclick="toggleFoldout(this)">
       <span class="foldout-question">💡 Wie wählen wir die maximale Anzahl Städte?</span>
@@ -719,6 +728,7 @@
       </div>
       </div>
   </div>
+</div>
 
   <h3>Ein Beispiel Schritt für Schritt</h3>
 
@@ -777,8 +787,8 @@
     Greedy Equal funktioniert außerdem schnell und zuverlässig auf einem normalen Computer.
   </div>
 
-<div style="border: 1.5px solid var(--box-border); border-radius: 10px; overflow: hidden; margin: 1.8rem 0;">
-  <div class="foldout" style="margin: 0; border: none; border-bottom: 1.5px solid var(--box-border);">
+  <div class="foldout-wrapper">
+    <div class="foldout" style="border-bottom: 1.5px solid var(--box-border);">
     <div class="foldout-header" onclick="toggleFoldout(this)">
       <span class="foldout-question">💡 Warum wird die Maximalhöhe immer eingehalten?</span>
       <span class="foldout-icon">+</span>
@@ -792,7 +802,7 @@
       </div>
     </div>
   </div>
-  <div class="foldout" style="margin: 0; border: none;">
+  <div class="foldout">
     <div class="foldout-header" onclick="toggleFoldout(this)">
       <span class="foldout-question">💡 Woran erkennt man, wenn Greedy Equal keine Lösung findet?</span>
       <span class="foldout-icon">+</span>
