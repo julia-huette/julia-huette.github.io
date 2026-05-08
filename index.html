@@ -719,6 +719,9 @@
   style="width: 50%; display: block; margin: 1.8rem auto; cursor: pointer;">
   <source src="GreedyEqualScene_big.mp4" type="video/mp4">
 </video>
+<p style="text-align: center; font-size: 0.82rem; color: var(--text-light); margin-top: 0.5rem; font-style: italic;">
+  Klicke zum Pausieren
+</p>
 
 <div class="foldout-wrapper">
   <div class="foldout">
@@ -782,9 +785,22 @@
     Hier noch einmal der ganze Prozess im Video:
   </p>
 
-  <video width="50%" controls style="border-radius: 10px; margin: 1.8rem auto; display: block;">
+  <!-- <video width="50%" controls style="border-radius: 10px; margin: 1.8rem auto; display: block;">
   <source src="GreedyEqualScene_small.mp4" type="video/mp4">
+</video> -->
+  
+<video 
+  autoplay 
+  loop 
+  muted 
+  playsinline
+  onclick="this.paused ? this.play() : this.pause()"
+  style="width: 50%; display: block; margin: 1.8rem auto; cursor: pointer;">
+  <source src="GreedyEqualScene_small_transparent.webm" type="video/mp4">
 </video>
+<p style="text-align: center; font-size: 0.82rem; color: var(--text-light); margin-top: 0.5rem; font-style: italic;">
+  Klicke zum Pausieren
+</p>
 
   <p>Greedy Equal bildet also so viele Schichten, wie Städte übereinander erlaubt sind, und platziert die Städte von klein nach groß in den Schichten. So versucht die Methode, allen ungefähr die gleiche Höhe zu geben. Nur wenn eine Stadt die Höhe aufgrund ihrer Maximalhöhe nicht ausfüllen kann, wird der frei gewordene Platz gleichmäßig unter den höheren Schichten aufgeteilt. Dank der Schichten wird sichergestellt, dass die größeren Städte, die später dran sind, mindestens genauso hoch sind wie die früheren, kleineren Städte.</p>
 
