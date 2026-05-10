@@ -852,9 +852,25 @@
       <p>Schauen wir uns dasselbe Beispiel an, aber mit maximal zwei Städten übereinander. Greedy Equal arbeitet also nur mit zwei Schichten. Die erste Schicht kann von der grünen Stadt wieder nicht ausgefüllt werden, sodass der übrige Platz an die zweite Schicht gegeben wird. Die zweite Schicht beginnt dann mit der blauen Stadt — allerdings hat diese eine Maximalhöhe von 7, die Schicht hat aber Höhe 10. Es bleibt also oben links eine Lücke im Bild.
         Das führt dazu, dass am Ende nicht mehr genügend Felder für die gelbe Stadt übrig sind.
         Daran erkennt man, dass Greedy Equal gescheitert ist. Erst wenn wir eine Schicht mehr erlauben, funktioniert die Methode.</p>
-      <video width="50%" controls style="border-radius: 10px; margin: 1.8rem auto; display: block;">
-        <source src="GreedyEqualScene_fail.mp4" type="video/mp4">
-      </video>
+      
+      <div class="video-wrapper" style="position: relative; width: 50%; margin: 1.8rem auto; cursor: pointer;" onclick="
+          const v = this.querySelector('video');
+          const t = this.querySelector('p');
+          if (v.paused) { v.play(); t.textContent = 'Klicke zum Pausieren'; }
+          else { v.pause(); t.textContent = 'Klicke zum Starten'; }
+        ">
+          <video muted playsinline style="width: 100%; display: block;" onended="
+            this.currentTime = 0;
+            this.closest('.video-wrapper').querySelector('p').textContent = 'Klicke zum Starten';
+          ">
+            <source src="GreedyEqualScene_fail.mp4" type="video/mp4">
+          </video>
+          <p style="position: absolute; bottom: 10%; left: 13%; text-align: left; font-size: 0.82rem; color: var(--text-light); font-style: italic;">
+            Klicke zum Starten
+          </p>
+        </div>
+
+        
       </div>
     </div>
   </div>
