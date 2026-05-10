@@ -363,7 +363,7 @@
   <h1>Färbe das Rechteck!</h1>
   <p class="subtitle">Verteile die Städte auf das Rechteck! Achte auf:</p>
   <div style="background: var(--box-bg); border: 1.5px solid var(--box-border); border-radius: 10px; padding: 0.9rem 1.3rem; margin: 0.8rem auto; max-width: 520px; text-align: left;">
-    <p style="margin-bottom: 0.4rem;"><strong>Fairness:</strong> Jede Stadt bekommt genau so viele Felder, wie sie Einwohnende hat.</p>
+    <p style="margin-bottom: 0.4rem;"><strong>Chancengleichheit:</strong> Jede Stadt bekommt genau so viele Felder, wie sie Einwohnende hat.</p>
     <p style="margin-bottom: 0.4rem;"><strong>Gerechtigkeitsempfinden:</strong> Kleinere Städte haben nie mehr Felder in einer Spalte als größere Städte. (Städte, die in einer Spalte gar nicht vorkommen, zählen nicht.)</p>
     <p style="margin-bottom: 0;"><strong>Einladungsgrenze:</strong> Jede Stadt hat eine Obergrenze an Feldern pro Spalte.</p>
   </div>
@@ -718,7 +718,7 @@ function checkSolution() {
   }));
   EXAMPLE.cities.forEach(city => {
     const n = counts[city.color];
-    if (n !== city.pop) errors.push(`${city.name}: ${n} statt ${city.pop} Felder (Fairness)`);
+    if (n !== city.pop) errors.push(`${city.name}: ${n} statt ${city.pop} Felder (Chancengleichheit)`);
   });
 
   for (let c = 0; c < EXAMPLE.cols; c++) {
