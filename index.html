@@ -791,8 +791,9 @@
   
 <div class="video-wrapper" style="position: relative; width: 70%; margin: 1.8rem auto; cursor: pointer;" onclick="this.querySelector('video').paused ? this.querySelector('video').play() : this.querySelector('video').pause()">
   <video 
-    autoplay loop muted playsinline
-    style="width: 100%; display: block;">
+    autoplay muted playsinline
+    style="width: 100%; display: block;"
+    onended="setTimeout(() => this.play(), 5000)">
     <source src="GreedyEqualScene_small_transparent.webm" type="video/mp4">
   </video>
   <p style="position: absolute; bottom: 10%; left: 15%; text-align: left; font-size: 0.82rem; color: var(--text-light); font-style: italic;">
