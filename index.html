@@ -710,18 +710,14 @@
   <source src="GreedyEqualScene_big.mp4" type="video/mp4">
 </video> -->
 
-<video 
-  autoplay 
-  loop 
-  muted 
-  playsinline
-  onclick="this.paused ? this.play() : this.pause()"
-  style="width: 60%; display: block; margin: 1.8rem auto; cursor: pointer;">
-  <source src="GreedyEqualScene_big.mp4" type="video/mp4">
-</video>
-<p style="position: absolute; bottom: 15%; left: 25%; right: 0; text-align: left; font-size: 0.82rem; color: var(--text-light); font-style: italic;">
-  Klicke zum Pausieren
-</p>
+<div class="video-wrapper" style="position: relative; width: 70%; margin: 1.8rem auto; cursor: pointer;" onclick="this.querySelector('video').paused ? this.querySelector('video').play() : this.querySelector('video').pause()">
+  <video autoplay muted playsinline style="width: 100%; display: block;" onended="setTimeout(() => this.play(), 5000)">
+    <source src="GreedyEqualScene_big.mp4" type="video/mp4">
+  </video>
+  <p style="position: absolute; bottom: 10%; left: 10%; text-align: left; font-size: 0.82rem; color: var(--text-light); font-style: italic;">
+    Klicke zum Pausieren
+  </p>
+</div>
 
 <div class="foldout-wrapper">
   <div class="foldout">
@@ -796,7 +792,7 @@
     onended="setTimeout(() => this.play(), 5000)">
     <source src="GreedyEqualScene_small_transparent.webm" type="video/mp4">
   </video>
-  <p style="position: absolute; bottom: 10%; left: 13%; text-align: left; font-size: 0.82rem; color: var(--text-light); font-style: italic;">
+  <p style="position: absolute; bottom: 10%; left: 10%; text-align: left; font-size: 0.82rem; color: var(--text-light); font-style: italic;">
     Klicke zum Pausieren
   </p>
 </div>
