@@ -30,13 +30,14 @@
     @media (max-width: 400px) { :root { --sq: 24px; } }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-
+    html {
+      font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+      scroll-behavior: smooth;
+    }
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--blue-lightest);
       color: var(--text);
-      font-size: 15px;
       line-height: 1.6;
       min-height: 100vh;
       padding: 1.5rem 1rem 3rem;
