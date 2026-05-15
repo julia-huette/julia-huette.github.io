@@ -21,13 +21,15 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-
+   html {
+      font-size: clamp(1rem, 1.5vw, 1.4rem);
+      scroll-behavior: smooth;
+    }
+    
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--blue-lightest);
       color: var(--text);
-      font-size: clamp(1rem, 1.5vw, 1.4rem);
       line-height: 1.75;
     }
 
