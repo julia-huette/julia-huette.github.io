@@ -838,7 +838,9 @@
     </div>
     <div class="step">
       <span class="step-label">Schritt 2</span>
-      <span>Wir starten mit der <strong>kleinsten Stadt</strong>, der grünen. Ihre Maximalhöhe ist 2 — sie kann die Schichthöhe von 4 nicht voll ausnutzen. Sie wird unten links platziert. Die rote Stadt (Maximalhöhe 4) wird mit der vollen Schichthöhe daneben platziert.</span>
+      <span>Wir starten mit der <strong>kleinsten Stadt</strong>, der grünen. Ihre Maximalhöhe ist 2 — sie kann die Schichthöhe von 4 nicht voll ausnutzen. 
+        Sie wird unten links platziert und nutzt ihre Maximalhöhe aus. 
+        Die rote Stadt (Maximalhöhe 4) wird mit der vollen Schichthöhe daneben platziert.</span>
     </div>
     <div class="step">
       <span class="step-label">Schritt 3</span>
@@ -914,7 +916,9 @@
       <div class="foldout-body-inner">
       <p>Schauen wir uns dasselbe Beispiel an, aber mit maximal zwei Städten übereinander. Greedy Equal arbeitet also nur mit zwei Schichten. Die erste Schicht kann von der grünen Stadt wieder nicht ausgefüllt werden, sodass der übrige Platz an die zweite Schicht gegeben wird. Die zweite Schicht beginnt dann mit der blauen Stadt — allerdings hat diese eine Maximalhöhe von 7, die Schicht hat aber Höhe 10. Es bleibt also oben links eine Lücke im Bild.
         Das führt dazu, dass am Ende nicht mehr genügend Felder für die gelbe Stadt übrig sind.
-        Daran erkennt man, dass Greedy Equal gescheitert ist. Erst wenn wir eine Schicht mehr erlauben, funktioniert die Methode.</p>
+        Daran erkennt man, dass Greedy Equal gescheitert ist. 
+        Erst wenn wir eine Schicht mehr erlauben, funktioniert die Methode.
+        Tatsächlich ist es in diesem Beispiel auch garnicht möglich, mit nur zwei Städten übereinander auszukommen. </p>
       
       <div class="video-wrapper" style="position: relative; width: 50%; margin: 1.8rem auto; cursor: pointer;" onclick="
           const v = this.querySelector('video');
