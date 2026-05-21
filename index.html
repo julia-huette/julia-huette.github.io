@@ -85,8 +85,36 @@
       font-weight: 300;
     }
     .hero p strong {
-      color: var(--white);
+        color: var(--white);
+      }
+    .hero-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      max-width: 950px;
+      margin: 0 auto 2rem;
     }
+    .hero-card {
+      background: rgba(255,255,255,0.12);
+      border: 0.5px solid rgba(255,255,255,0.25);
+      border-radius: 10px;
+      padding: 0.9rem 1rem;
+      text-align: left;
+    }
+    .hero-card-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.6);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+    .hero-card-body {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.92);
+      line-height: 1.5;
+    }
+    
     .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
     .btn {
       display: inline-block;
@@ -283,6 +311,10 @@
       .hero-grid {
         grid-template-columns: 1fr !important;
       }
+
+      .hero-cards {
+        grid-template-columns: 1fr;
+      }
       
       .figure.medium,
       .figure.small {
@@ -335,13 +367,19 @@
 <div class="hero">
   <h1>Gemeindelotterie für Bürger*innenräte</h1>
   <!-- <p>Wie werden Einladungsbriefe verschickt, wenn es kein zentrales Melderegister gibt? Wie wird sichergestellt, dass jede Person dieselbe Chance auf eine Einladung hat?</p> -->
-  <div class = "hero-grid" style="display: grid; grid-template-columns: auto 1fr; gap: 0.3rem 1rem; text-align: left; max-width: 580px; margin: 0 auto 2rem;">
-    <strong style="color: var(--white); white-space: nowrap;">Das Ziel:</strong>
-    <span>Versende eine feste Anzahl Einladungsbriefe für einen Bürger*innenrat, sodass jede Person dieselbe Chance auf einen Brief hat.</span>
-    <strong style="color: var(--white); white-space: nowrap;">Das Problem:</strong>
-    <span>Es gibt kein zentrales Melderegister — Briefe können nur über einzelne Gemeinden verschickt werden.</span>
-    <strong style="color: var(--white); white-space: nowrap;">Die Lösung:</strong>
-    <span>Eine faire und transparente Gemeindelotterie.</span>
+  <div class="hero-cards">
+    <div class="hero-card">
+      <div class="hero-card-tag">Das Ziel</div>
+      <div class="hero-card-body">Versende eine feste Anzahl Einladungsbriefe für einen Bürger*innenrat, sodass jede Person dieselbe Chance auf einen Brief hat.</div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-tag">Das Problem</div>
+      <div class="hero-card-body">Es gibt kein zentrales Melderegister — Briefe können nur über einzelne Gemeinden verschickt werden.</div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-tag">Die Lösung</div>
+      <div class="hero-card-body">Eine faire und transparente Gemeindelotterie.</div>
+    </div>
   </div>
   <div class="hero-buttons">
     <a href="#grundproblem" class="btn btn-primary">Zur Erklärung</a>
