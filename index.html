@@ -782,6 +782,8 @@
     außerdem die Anzahl der insgesamt zu verschickenden Briefe und eine Grenze, wie viele Städte maximal übereinander liegen dürfen. 
     Unter diesen Vorgaben versucht Greedy Equal dann, das Bild zu färben.
     Das Bild wird in Schichten von unten nach oben und von links nach rechts aufgefüllt, wobei die Städte nach Größe sortiert verarbeitet werden.
+    Greedy Equal verwendet sogenannte Schichten, welche, neben den Maximalhöhen der Städte, als zusätzliche obere Schranken für die höhe der Städte fungieren. 
+    So wird sicher gestellt, dass wir immer genug Platz für die größeren Städte lassen. Diese Schichten müssen im Laufe des Algorithmus angepasst werden.
     Bevor wir die Methode im Detail anschauen, hier schonmal ein Beispiel: </p>
 
  <!-- <video width="50%" controls style="border-radius: 10px; margin: 1.8rem auto; display: block;">
