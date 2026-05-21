@@ -279,6 +279,10 @@
 
       #arrowImg { width: 5vh; }
       .nav-spiel-mobile { display: block; }
+
+      .hero-grid {
+        grid-template-columns: 1fr !important;
+      }
       
       .figure.medium,
       .figure.small {
@@ -331,11 +335,14 @@
 <div class="hero">
   <h1>Gemeindelotterie für Bürger*innenräte</h1>
   <!-- <p>Wie werden Einladungsbriefe verschickt, wenn es kein zentrales Melderegister gibt? Wie wird sichergestellt, dass jede Person dieselbe Chance auf eine Einladung hat?</p> -->
-  <p>
-    <strong>Das Ziel:</strong> Versende eine feste Anzahl Einladungsbriefe für einen Bürger*innenrat, sodass jede Person dieselbe Chance auf einen Brief hat.<br>
-    <strong>Das Problem:</strong> Es gibt kein zentrales Melderegister — Briefe können nur über einzelne Gemeinden verschickt werden.<br>
-    <strong>Die Lösung:</strong> Eine faire und transparente Gemeindelotterie.
-  </p>
+  <div style="display: grid; grid-template-columns: auto 1fr; gap: 0.3rem 1rem; text-align: left; max-width: 580px; margin: 0 auto 2rem;">
+    <strong style="color: var(--white); white-space: nowrap;">Das Ziel:</strong>
+    <span>Versende eine feste Anzahl Einladungsbriefe für einen Bürger*innenrat, sodass jede Person dieselbe Chance auf einen Brief hat.</span>
+    <strong style="color: var(--white); white-space: nowrap;">Das Problem:</strong>
+    <span>Es gibt kein zentrales Melderegister — Briefe können nur über einzelne Gemeinden verschickt werden.</span>
+    <strong style="color: var(--white); white-space: nowrap;">Die Lösung:</strong>
+    <span>Eine faire und transparente Gemeindelotterie.</span>
+  </div>
   <div class="hero-buttons">
     <a href="#grundproblem" class="btn btn-primary">Zur Erklärung</a>
     <a href="spiel.html" target="_blank" class="btn btn-primary">🎮 Zum Spiel</a>
