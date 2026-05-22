@@ -928,7 +928,7 @@
           if (v.paused) { v.play(); t.textContent = 'Klicke zum Pausieren'; }
           else { v.pause(); t.textContent = 'Klicke zum Starten'; }
         ">
-          <video muted playsinline style="width: 100%; display: block;" onended="
+          <video muted playsinline style="width: 100%; display: block;" onended="setTimeout(() => { this.currentTime = 0; this.play(); }, 5000)""
             this.currentTime = 0;
             this.closest('.video-wrapper').querySelector('p').textContent = 'Klicke zum Starten';
             ">
