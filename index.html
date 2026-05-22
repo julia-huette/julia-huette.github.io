@@ -786,14 +786,13 @@
     So wird sicher gestellt, dass wir immer genug Platz für die größeren Städte lassen. Diese Schichten müssen im Laufe des Algorithmus angepasst werden.
     Bevor wir die Methode im Detail anschauen, hier schonmal ein Beispiel: </p>
 
- <!-- <video width="50%" controls style="border-radius: 10px; margin: 1.8rem auto; display: block;">
-  <source src="GreedyEqualScene_big.mp4" type="video/mp4">
-</video> -->
-
 <div class="video-wrapper" style="position: relative; width: 70%; margin: 1.8rem auto; cursor: pointer;" onclick="this.querySelector('video').paused ? this.querySelector('video').play() : this.querySelector('video').pause()">
-  <video autoplay muted playsinline style="width: 100%; display: block;" onended="setTimeout(() => this.play(), 5000)">
+  <video id="autoVid1" autoplay muted playsinline style="width: 100%; display: block;" onended="setTimeout(() => this.play(), 5000)">
     <source src="GreedyEqualSceneBig.webm" type="video/webm">
   </video>
+  <script>
+    document.getElementById('autoVid1').play().catch(() => {});
+  </script>
   <p style="margin-left: 120px; text-align: left; font-size: 0.82rem; color: var(--text-light); font-style: italic;">
     Klicke zum Pausieren
   </p>
@@ -872,12 +871,15 @@
 </video> -->
   
 <div class="video-wrapper" style="position: relative; width: 70%; margin: 1.8rem auto; cursor: pointer;" onclick="this.querySelector('video').paused ? this.querySelector('video').play() : this.querySelector('video').pause()">
-  <video 
+  <video id="autoVid2"
     autoplay muted playsinline
     style="width: 100%; display: block;"
     onended="setTimeout(() => this.play(), 5000)">
     <source src="GreedyEqualSceneSmall.webm" type="video/webm">
   </video>
+  <script>
+    document.getElementById('autoVid2').play().catch(() => {});
+  </script>
   <p style="margin-left: 120px; text-align: left; font-size: 0.82rem; color: var(--text-light); font-style: italic;">
     Klicke zum Pausieren
   </p>
