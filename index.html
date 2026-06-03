@@ -502,7 +502,8 @@
 
   <div style="height: auto;">
     <img src="options2.png" alt="Vier verschiedene Einfärbe-Optionen im Vergleich" class="figure" style="position: sticky; top: 60px; max-height: calc(42vh - 30px); width: auto; max-width: 100%; border-radius: 10px; display: block; margin: 0 auto;" />
-    
+
+  <br>
   <p><strong>Bild 1 – Chaotisch:</strong> <br>
     So ein chaotisches Bild wie dieses wird schnell unübersichtlich.</p>
 
@@ -513,7 +514,7 @@
 
   <p>Beide Bilder haben aber einen entscheidenden Nachteil: 
     Es kann passieren, dass alle Städte des Landes gleichzeitig ausgewählt werden und Briefe verschicken müssen. 
-    In Ländern mit vielen Städten ist es nicht umsetzbar, mit allen Kontakt aufzunehmen und sich zu koordinieren.
+    Auch wenn in dem Beispiel der Unterschied zwischen 3 oder 4 kontaktierten Städten nicht groß ist, wird es in Beispielen mit vielen Städten sehr wichtig, die Anzahl an kontaktierten Städten klein zu halten.
     Wir möchten also pro Spalte nur eine begrenzte Anzahl verschiedener Farben haben.</p>
 
   <p><strong>Bild 3 – Maximal zwei Farben pro Spalte:</strong> <br>
@@ -809,14 +810,21 @@
     </div>
     <div class="foldout-body">
       <div class="foldout-body-inner">
-      <p>Man kann nicht einfach jede beliebige Grenze verlangen. 
+      <p>
+        Mit jeder ausgewählten Stadt muss Kontakt aufgenommen werden und Rücksprache gehalten werden.
+        Um den Verwaltungsaufwand umsetzbar und kontrollierbar zu halten, gibt es deshalb eine Vorgabe, wie viele Städte das höchstens sein sollen.
+        Diese Vorgabe wird dann in unserer Methode als Anzahl Schichten genutzt.        
+        Man kann von unserer Methode natürlich nicht einfach jede beliebige Grenze verlangen. 
         Würden wir zum Beispiel vorgeben, dass nie mehr als eine Stadt angeschrieben werden darf, aber eine Stadt nicht die Gesamtanzahl Briefe verschicken darf, wäre das Problem unlösbar. 
         Eine gewisse Anzahl Städte übereinander muss erlaubt sein, damit es überhaupt möglich ist, alle Kriterien zu erfüllen.</p>
-      <p>Wie groß diese Anzahl ist, hängt immer von der spezifischen Situation ab. Wir kennen sie nicht, sondern starten einfach bei 1 und erhöhen die Vorgabe so lange, bis Greedy Equal eine Lösung gefunden hat. 
-        Spätestens, wenn wir alle Städte übereinander erlauben, gibt es immer eine Lösung:
-        Genau wie in Bild 2 vorhin kann man nämlich einfach alle Städte übereinander schichten. 
-        Ein mathematischer Beweis hat gezeigt, dass Greedy Equal aber schon dann eine Lösung findet, wenn man ihm 2 Städte mehr als die theoretisch notwendige Mindestanzahl erlaubt.
-        Das bedeutet, es müssen höchstens 2 Städte mehr als nötig kontaktiert werden.</p>
+      <p>Wie groß diese Anzahl ist, hängt immer von der spezifischen Situation ab. 
+        <!-- Spätestens, wenn wir alle Städte übereinander erlauben, gibt es immer eine Lösung:
+        Genau wie in Bild 2 vorhin kann man nämlich einfach alle Städte übereinander schichten. -->
+        Sollte Greedy Equal keine Lösung für die vorgegebene Anzahl Städte finden, kann man Stück für Stück die Vorgabe erhöhen, bis eine Lösung gefunden wird.
+        Ein mathematischer Beweis hat gezeigt, dass Greedy Equal aber spätestens dann eine Lösung findet, wenn man ihm 2 Städte mehr als die theoretisch notwendige Mindestanzahl erlaubt.
+        Eine Lösung mit dieser Mindestanzahl wäre aber viel schwieriger zu finden und würde ggf. ein viel weniger verständliches Bild haben.
+        Die Größenordnung von nur zwei Städten mehr stellt in der Praxis normalerweise kein Problem dar.
+      </p>
       </div>
       </div>
   </div>
