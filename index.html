@@ -1008,7 +1008,12 @@
     </div>
     <div class="foldout-body">
       <div class="foldout-body-inner">
-      <p>Schauen wir uns dasselbe Beispiel an, aber mit maximal zwei Städten übereinander. Greedy Equal arbeitet also nur mit zwei Schichten. Die erste Schicht kann von der grünen Stadt wieder nicht ausgefüllt werden, sodass der übrige Platz an die zweite Schicht gegeben wird. Die zweite Schicht beginnt dann mit der blauen Stadt — allerdings hat diese eine Maximalhöhe von 7, die Schicht hat aber Höhe 10. Es bleibt also oben links eine Lücke im Bild.
+      <p>Schauen wir uns dasselbe Beispiel an, aber mit maximal zwei Städten übereinander. Greedy Equal arbeitet also nur mit zwei Schichten. Die erste Schicht kann von der grünen Stadt wieder nicht ausgefüllt werden, sodass der übrige Platz an die zweite Schicht gegeben wird. 
+        Die zweite Schicht beginnt dann mit der blauen Stadt — allerdings hat diese eine Maximalhöhe von 7, die Schicht hat aber Höhe 10. </p>
+
+        <img src="ge_fail2.png" alt="Lücke im Bild" class="figure small" style="border-radius: 10px;" />
+        
+        <p>Es bleibt also oben links eine Lücke im Bild.
         Das führt dazu, dass am Ende nicht mehr genügend Felder für die gelbe Stadt übrig sind.
         Daran erkennt man, dass Greedy Equal gescheitert ist. 
         Erst wenn wir eine Schicht mehr erlauben, funktioniert die Methode.
